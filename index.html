@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Brain Dump — Bitcoin Learning Labs</title>
+<style>
+  :root {
+    --bg: #0d1117;
+    --bg-board: #010409;
+    --surface: #161b22;
+    --surface-hover: #1f262e;
+    --border: #30363d;
+    --text: #e6edf3;
+    --text-dim: #8b949e;
+    --accent: #f7931a;
+    --accent-dim: rgba(247,147,26,0.12);
+    --purple: #bc8cff;
+    --green: #3fb950;
+    --red: #f85149;
+    --blue: #58a6ff;
+    --yellow: #d29922;
+    --radius: 10px;
+    --shadow: 0 2px 8px rgba(0,0,0,0.4);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Header */
+  header {
+    background: linear-gradient(135deg, #0d1117 0%, #161b22 100%);
+    border-bottom: 1px solid var(--border);
+    padding: 18px 28px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    backdrop-filter: blur(8px);
+  }
+
+  .logo {
+    width: 38px;
+    height: 38px;
+    background: var(--accent);
+    border-radius: 9px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 20px;
+    color: #fff;
+    flex-shrink: 0;
+    box-shadow: 0 0 20px rgba(247,147,26,0.3);
+  }
+
+  .header-titles h1 {
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: -0.3px;
+  }
+  .header-titles h1 .tag {
+    color: var(--accent);
+  }
+  .header-titles p {
+    font-size: 12px;
+    color: var(--text-dim);
+    margin-top: 2px;
+  }
+
+  .header-actions {
+    margin-left: auto;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
+
+  .header-actions .by {
+    font-size: 12px;
+    color: var(--text-dim);
+  }
+  .header-actions .by b { color: var(--purple); }
+
+  /* Toolbar */
+  .toolbar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 28px;
+    background: var(--bg-board);
+    border-bottom: 1px solid var(--border);
+    flex-wrap: wrap;
+  }
+
+  .search-box {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 7px 14px;
+    color: var(--text);
+    font-size: 13px;
+    width: 240px;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .search-box:focus { border-color: var(--accent); }
+
+  .filter-chip {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 5px 14px;
+    font-size: 12px;
+    color: var(--text-dim);
+    cursor: pointer;
+    transition: all 0.2s;
+    user-select: none;
+  }
+  .filter-chip:hover { border-color: var(--text-dim); color: var(--text); }
+  .filter-chip.active {
+    background: var(--accent-dim);
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  .stat-badge {
+    font-size: 12px;
+    color: var(--text-dim);
+    margin-left: auto;
+  }
+  .stat-badge b { color: var(--text); }
+
+  /* Board */
+  .board {
+    display: flex;
+    gap: 16px;
+    padding: 24px 28px;
+    min-height: calc(100vh - 140px);
+    align-items: flex-start;
+  }
+
+  .column {
+    background: var(--bg-board);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    width: 300px;
+    min-width: 300px;
+    display: flex;
+    flex-direction: column;
+    max-height: calc(100vh - 170px);
+  }
+
+  .column.drag-over {
+    border-color: var(--accent);
+    background: var(--accent-dim);
+  }
+
+  .column-header {
+    padding: 14px 16px 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .col-dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .column-title {
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .column-count {
+    font-size: 11px;
+    color: var(--text-dim);
+    background: var(--surface);
+    padding: 2px 8px;
+    border-radius: 10px;
+    margin-left: auto;
+  }
+
+  .column-body {
+    padding: 10px;
+    overflow-y: auto;
+    flex: 1;
+    min-height: 80px;
+  }
+
+  .column-body::-webkit-scrollbar { width: 6px; }
+  .column-body::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+  /* Cards */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px;
+    margin-bottom: 8px;
+    cursor: grab;
+    transition: all 0.15s;
+    position: relative;
+  }
+  .card:hover {
+    background: var(--surface-hover);
+    border-color: var(--text-dim);
+    box-shadow: var(--shadow);
+  }
+  .card.dragging {
+    opacity: 0.4;
+    cursor: grabbing;
+  }
+
+  .card-label {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 2px 8px;
+    border-radius: 4px;
+    margin-bottom: 7px;
+  }
+
+  .card-title {
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.35;
+    margin-bottom: 4px;
+  }
+
+  .card-desc {
+    font-size: 12px;
+    color: var(--text-dim);
+    line-height: 1.5;
+    margin-bottom: 8px;
+  }
+
+  .card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 8px;
+  }
+
+  .card-id {
+    font-size: 11px;
+    color: var(--text-dim);
+    font-family: "SF Mono", "Fira Code", monospace;
+  }
+
+  .priority-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+  }
+
+  .card-delete {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: none;
+    border: none;
+    color: var(--text-dim);
+    cursor: pointer;
+    font-size: 16px;
+    opacity: 0;
+    transition: opacity 0.15s;
+    padding: 2px 5px;
+    line-height: 1;
+  }
+  .card:hover .card-delete { opacity: 1; }
+  .card-delete:hover { color: var(--red); }
+
+  /* Add card */
+  .add-card-btn {
+    width: 100%;
+    background: transparent;
+    border: 1px dashed var(--border);
+    border-radius: 8px;
+    color: var(--text-dim);
+    padding: 8px;
+    font-size: 13px;
+    cursor: pointer;
+    margin-top: 4px;
+    transition: all 0.15s;
+  }
+  .add-card-btn:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  .add-card-form {
+    display: none;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .add-card-form.active { display: flex; }
+  .add-card-form textarea {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text);
+    padding: 10px;
+    font-size: 13px;
+    font-family: inherit;
+    resize: vertical;
+    min-height: 60px;
+    outline: none;
+  }
+  .add-card-form textarea:focus { border-color: var(--accent); }
+
+  .form-actions { display: flex; gap: 8px; }
+  .btn-primary {
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 6px 14px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  .btn-secondary {
+    background: transparent;
+    color: var(--text-dim);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 6px 12px;
+    font-size: 12px;
+    cursor: pointer;
+  }
+
+  /* Label colors */
+  .lab-labs { background: rgba(88,166,255,0.15); color: var(--blue); }
+  .lab-privacy { background: rgba(188,140,255,0.15); color: var(--purple); }
+  .lab-storage { background: rgba(63,185,80,0.15); color: var(--green); }
+  .lab-signing { background: rgba(247,147,26,0.15); color: var(--accent); }
+  .lab-infra { background: rgba(210,153,34,0.15); color: var(--yellow); }
+
+  .empty-col {
+    text-align: center;
+    color: var(--text-dim);
+    font-size: 12px;
+    padding: 20px 0;
+    opacity: 0.5;
+  }
+
+  /* Toast */
+  .toast {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%) translateY(100px);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 10px 20px;
+    border-radius: var(--radius);
+    font-size: 13px;
+    box-shadow: var(--shadow);
+    transition: transform 0.3s;
+    z-index: 999;
+  }
+  .toast.show { transform: translateX(-50%) translateY(0); }
+
+  @media (max-width: 768px) {
+    header { padding: 14px 16px; }
+    .header-actions .by { display: none; }
+    .board { flex-direction: column; padding: 16px; }
+    .column { width: 100%; min-width: 100%; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">₿</div>
+  <div class="header-titles">
+    <h1>Brain Dump <span class="tag">// Bitcoin Learning Labs</span></h1>
+    <p>Project board by m3rkle_tree — self-custody, security & hands-on learning modules</p>
+  </div>
+  <div class="header-actions">
+    <span class="by">curated by <b>m3rkle_tree</b></span>
+  </div>
+</header>
+
+<div class="toolbar">
+  <input class="search-box" id="search" type="text" placeholder="Search cards…" oninput="filterCards()">
+  <div class="filter-chip active" data-filter="all" onclick="setFilter('all')">All</div>
+  <div class="filter-chip" data-filter="labs" onclick="setFilter('labs')">Learning Labs</div>
+  <div class="filter-chip" data-filter="storage" onclick="setFilter('storage')">Storage</div>
+  <div class="filter-chip" data-filter="signing" onclick="setFilter('signing')">Signing</div>
+  <div class="filter-chip" data-filter="privacy" onclick="setFilter('privacy')">Privacy</div>
+  <div class="filter-chip" data-filter="infra" onclick="setFilter('infra')">Infra</div>
+  <span class="stat-badge" id="stats"></span>
+</div>
+
+<div class="board" id="board"></div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ── Column config ──
+const COLS = [
+  { id: 'backlog',   title: 'Brain Dump',   color: '#8b949e' },
+  { id: 'design',    title: 'Design / Spec', color: '#bc8cff' },
+  { id: 'building',  title: 'In Progress',   color: '#f7931a' },
+  { id: 'review',    title: 'Testing / QA',   color: '#d29922' },
+  { id: 'done',      title: 'Shipped',        color: '#3fb950' },
+];
+
+let cardIdCounter = 100;
+let currentFilter = 'all';
+
+// ── Default seed cards ──
+const SEED_CARDS = [
+  // Backlog
+  { id: 1, col: 'backlog', label: 'labs', title: 'Hack-the-Box Style Bitcoin Labs', desc: 'Interactive online labs where users practice real Bitcoin attacks & defenses in a sandboxed environment. Seed phrase theft, fee sniping, dust attacks, RBF double-spend, PSBT tampering.', priority: 'high' },
+  { id: 2, col: 'backlog', label: 'storage', title: 'Print Seed Pills (Paper Backup)', desc: 'Foolproof printable guide for paper seed-phrase backups. Tamper-evident design, fire-rotation checklist, degenerate-paper test.', priority: 'med' },
+  { id: 3, col: 'backlog', label: 'signing', title: 'On-Chip Signers Explainer', desc: 'Deep dive into secure-element signers: Coldcard, SeedSigner, Krux, Jade. When to trust the chip vs. air-gap.', priority: 'high' },
+  { id: 4, col: 'backlog', label: 'storage', title: 'Steel Punches & Metal Backups', desc: 'Module covering steel plate punching, Cobo / Cryptosteel / DIY. Corrosion, fire, drop tests. "Can you recover it after a house fire?" lab.', priority: 'med' },
+  { id: 5, col: 'backlog', label: 'privacy', title: 'Coinjoin & UTXO Hygiene Lab', desc: 'Hands-on lab: trace a tainted UTXO through a coinjoin, measure privacy set degradation, understand heuristics.', priority: 'med' },
+  { id: 6, col: 'backlog', label: 'infra', title: 'Run Your Own Node', desc: 'Module: spin up Bitcoin Core + Electrs + a mempool.space instance. Tor-only. Lightning node bonus track.', priority: 'low' },
+  { id: 7, col: 'backlog', label: 'signing', title: 'Multisig Setup Wizard', desc: 'Step-by-step quorum lab: 2-of-3 with geographically diverse signers. Practice recovery from single-device loss.', priority: 'high' },
+  { id: 8, col: 'backlog', label: 'privacy', title: 'Address Reuse Detective', desc: 'Lab: given a wallet fingerprint, find reused addresses on-chain and quantify the privacy leak.', priority: 'low' },
+
+  // Design
+  { id: 9, col: 'design', label: 'labs', title: 'Lab Platform Architecture', desc: 'Define the challenge engine: Docker-based Bitcoin regtest envs, scoring system, hint tiers, flag submission. Badge + leaderboard concept.', priority: 'high' },
+  { id: 10, col: 'design', label: 'infra', title: 'Module Curriculum Map', desc: 'Lay out progression: Beginner (keys & addresses) → Intermediate (signing & multisig) → Advanced (privacy & network). Prerequisites between modules.', priority: 'med' },
+
+  // In Progress
+  { id: 11, col: 'building', label: 'storage', title: 'Steel Punch Fire/Drop Test Doc', desc: 'Filming & writing up the destruction tests. Comparing 4 materials across blowtorch, 30min fire, 2-story drop.', priority: 'med' },
+  { id: 12, col: 'building', label: 'labs', title: 'PSBT Tampering Challenge v1', desc: 'Build the first lab: give learners a PSBT, let them catch a malicious output swap. Score on detection speed + reasoning.', priority: 'high' },
+
+  // Review
+  { id: 13, col: 'review', label: 'signing', title: 'Signer Comparison Cheat-Sheet', desc: 'Crowdsourced comparison: secure element, open-source, air-gap, UX. Awaiting peer review from the community.', priority: 'med' },
+
+  // Done
+  { id: 14, col: 'done', label: 'labs', title: 'Project Concept & Branding', desc: '"Brain Dump" name, logo, mission statement locked. m3rkle_tree as curator confirmed.', priority: 'high' },
+];
+
+let cards = [];
+
+// ── Persistence ──
+function loadCards() {
+  const saved = localStorage.getItem('braindump_cards');
+  if (saved) {
+    try {
+      cards = JSON.parse(saved);
+      cardIdCounter = Math.max(cardIdCounter, ...cards.map(c => c.id)) + 1;
+      return;
+    } catch(e) {}
+  }
+  cards = JSON.parse(JSON.stringify(SEED_CARDS));
+}
+function saveCards() {
+  localStorage.setItem('braindump_cards', JSON.stringify(cards));
+}
+
+// ── Render ──
+function renderBoard() {
+  const board = document.getElementById('board');
+  board.innerHTML = '';
+  COLS.forEach(col => {
+    const colCards = cards.filter(c => c.col === col.id);
+    const colEl = document.createElement('div');
+    colEl.className = 'column';
+    colEl.dataset.col = col.id;
+
+    colEl.innerHTML = `
+      <div class="column-header">
+        <div class="col-dot" style="background:${col.color}"></div>
+        <span class="column-title">${col.title}</span>
+        <span class="column-count">${colCards.length}</span>
+      </div>
+      <div class="column-body" id="body-${col.id}">
+        ${colCards.length === 0 ? '<div class="empty-col">Drop cards here</div>' : ''}
+      </div>
+      <div style="padding:0 10px 10px;">
+        <button class="add-card-btn" onclick="toggleAddForm('${col.id}', this)">+ Add a card</button>
+        <div class="add-card-form" id="form-${col.id}">
+          <textarea id="input-${col.id}" placeholder="Card title…&#10;(optional description on line 2)"></textarea>
+          <div class="form-actions">
+            <button class="btn-primary" onclick="addCard('${col.id}')">Add</button>
+            <button class="btn-secondary" onclick="toggleAddForm('${col.id}')">Cancel</button>
+          </div>
+        </div>
+      </div>
+    `;
+    board.appendChild(colEl);
+
+    const body = colEl.querySelector('.column-body');
+    body.addEventListener('dragover', e => {
+      e.preventDefault();
+      colEl.classList.add('drag-over');
+    });
+    body.addEventListener('dragleave', e => {
+      if (!colEl.contains(e.relatedTarget)) colEl.classList.remove('drag-over');
+    });
+    body.addEventListener('drop', e => {
+      e.preventDefault();
+      colEl.classList.remove('drag-over');
+      const id = parseInt(e.dataTransfer.getData('text/plain'));
+      moveCard(id, col.id);
+    });
+
+    colCards.forEach(card => body.appendChild(renderCard(card)));
+  });
+  updateStats();
+}
+
+function renderCard(card) {
+  const el = document.createElement('div');
+  el.className = 'card';
+  el.draggable = true;
+  el.dataset.id = card.id;
+  el.dataset.label = card.label;
+  const priorityColor = card.priority === 'high' ? 'var(--red)' : card.priority === 'med' ? 'var(--yellow)' : 'var(--text-dim)';
+  el.innerHTML = `
+    <button class="card-delete" onclick="deleteCard(${card.id})" title="Delete">✕</button>
+    <span class="card-label lab-${card.label}">${labelText(card.label)}</span>
+    <div class="card-title">${escapeHtml(card.title)}</div>
+    ${card.desc ? `<div class="card-desc">${escapeHtml(card.desc)}</div>` : ''}
+    <div class="card-footer">
+      <span class="card-id">#${card.id}</span>
+      <span class="priority-dot" style="background:${priorityColor}" title="Priority: ${card.priority}"></span>
+    </div>
+  `;
+  el.addEventListener('dragstart', e => {
+    e.dataTransfer.setData('text/plain', card.id);
+    el.classList.add('dragging');
+  });
+  el.addEventListener('dragend', () => el.classList.remove('dragging'));
+  return el;
+}
+
+function labelText(l) {
+  const map = { labs:'Learning Lab', storage:'Storage', signing:'Signing', privacy:'Privacy', infra:'Infra' };
+  return map[l] || l;
+}
+
+function escapeHtml(s) {
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+// ── Actions ──
+function moveCard(id, toCol) {
+  const card = cards.find(c => c.id === id);
+  if (card && card.col !== toCol) {
+    card.col = toCol;
+    saveCards();
+    renderBoard();
+    toast(`Moved to ${COLS.find(c=>c.id===toCol).title}`);
+  }
+}
+
+function toggleAddForm(colId, btn) {
+  const form = document.getElementById(`form-${colId}`);
+  const isActive = form.classList.toggle('active');
+  if (btn) btn.style.display = isActive ? 'none' : '';
+  if (isActive) document.getElementById(`input-${colId}`).focus();
+}
+
+function addCard(colId) {
+  const input = document.getElementById(`input-${colId}`);
+  const lines = input.value.trim().split('\n');
+  if (!lines[0]) { input.focus(); return; }
+  const label = currentFilter !== 'all' ? currentFilter : 'labs';
+  cards.push({
+    id: cardIdCounter++,
+    col: colId,
+    label,
+    title: lines[0],
+    desc: lines.slice(1).join(' ').trim() || '',
+    priority: 'med'
+  });
+  saveCards();
+  renderBoard();
+  toast('Card added');
+}
+
+function deleteCard(id) {
+  cards = cards.filter(c => c.id !== id);
+  saveCards();
+  renderBoard();
+  toast('Card deleted');
+}
+
+// ── Filter / Search ──
+function setFilter(f) {
+  currentFilter = f;
+  document.querySelectorAll('.filter-chip').forEach(c => {
+    c.classList.toggle('active', c.dataset.filter === f);
+  });
+  filterCards();
+}
+
+function filterCards() {
+  const q = document.getElementById('search').value.toLowerCase();
+  document.querySelectorAll('.card').forEach(el => {
+    const matchesFilter = currentFilter === 'all' || el.dataset.label === currentFilter;
+    const text = el.textContent.toLowerCase();
+    const matchesSearch = !q || text.includes(q);
+    el.style.display = (matchesFilter && matchesSearch) ? '' : 'none';
+  });
+}
+
+function updateStats() {
+  const total = cards.length;
+  const done = cards.filter(c => c.col === 'done').length;
+  const pct = total ? Math.round(done / total * 100) : 0;
+  document.getElementById('stats').innerHTML = `<b>${total}</b> cards · <b>${done}</b> shipped · <b>${pct}%</b> done`;
+}
+
+// ── Toast ──
+let toastTimer;
+function toast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 2000);
+}
+
+// ── Init ──
+loadCards();
+renderBoard();
+</script>
+
+</body>
+</html>

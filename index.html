@@ -352,6 +352,128 @@
   .lab-storage { background: rgba(63,185,80,0.15); color: var(--green); }
   .lab-signing { background: rgba(247,147,26,0.15); color: var(--accent); }
   .lab-infra { background: rgba(210,153,34,0.15); color: var(--yellow); }
+  .lab-hardware { background: rgba(247,147,26,0.15); color: var(--accent); }
+
+  /* Card detail badge */
+  .card-detail-badge {
+    display: inline-block;
+    font-size: 10px;
+    color: var(--accent);
+    margin-left: 6px;
+    opacity: 0.7;
+  }
+
+  /* Modal */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.7);
+    z-index: 200;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    backdrop-filter: blur(4px);
+  }
+  .modal-overlay.active { display: flex; }
+  .modal {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    max-width: 720px;
+    width: 100%;
+    max-height: 85vh;
+    overflow-y: auto;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.6);
+  }
+  .modal::-webkit-scrollbar { width: 6px; }
+  .modal::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+  .modal-header {
+    padding: 20px 24px 14px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  .modal-header .card-label { margin-bottom: 0; }
+  .modal-close {
+    margin-left: auto;
+    background: none;
+    border: none;
+    color: var(--text-dim);
+    font-size: 22px;
+    cursor: pointer;
+    padding: 0 4px;
+    line-height: 1;
+  }
+  .modal-close:hover { color: var(--red); }
+  .modal-body { padding: 18px 24px 24px; }
+  .modal-body h3 {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+  .modal-body .modal-desc {
+    font-size: 14px;
+    color: var(--text-dim);
+    line-height: 1.6;
+    margin-bottom: 16px;
+  }
+  .modal-body .detail-content {
+    font-size: 13px;
+    line-height: 1.7;
+    color: var(--text);
+  }
+  .modal-body .detail-content h4 {
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--accent);
+    margin: 18px 0 8px;
+  }
+  .modal-body .detail-content p { margin-bottom: 8px; color: var(--text-dim); }
+  .modal-body .detail-content ul { margin: 4px 0 12px 20px; }
+  .modal-body .detail-content li { margin-bottom: 4px; color: var(--text-dim); }
+  .modal-body .detail-content li b { color: var(--text); }
+  .modal-body .detail-content table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 8px 0 16px;
+    font-size: 12px;
+  }
+  .modal-body .detail-content th {
+    text-align: left;
+    padding: 6px 10px;
+    background: var(--surface);
+    color: var(--text);
+    font-weight: 600;
+    border-bottom: 1px solid var(--border);
+  }
+  .modal-body .detail-content td {
+    padding: 6px 10px;
+    border-bottom: 1px solid rgba(48,54,61,0.5);
+    color: var(--text-dim);
+  }
+  .modal-body .detail-content td b { color: var(--text); }
+  .modal-body .detail-content .callout {
+    background: var(--accent-dim);
+    border: 1px solid rgba(247,147,26,0.3);
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin: 12px 0;
+  }
+  .modal-body .detail-content .callout p { color: var(--text); margin: 0; }
+  .modal-body .detail-content a {
+    color: var(--blue);
+    text-decoration: none;
+  }
+  .modal-body .detail-content a:hover { text-decoration: underline; }
+  .modal-body .detail-content .score-big {
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--accent);
+  }
 
   .empty-col {
     text-align: center;
@@ -408,10 +530,15 @@
   <div class="filter-chip" data-filter="signing" onclick="setFilter('signing')">Signing</div>
   <div class="filter-chip" data-filter="privacy" onclick="setFilter('privacy')">Privacy</div>
   <div class="filter-chip" data-filter="infra" onclick="setFilter('infra')">Infra</div>
+  <div class="filter-chip" data-filter="hardware" onclick="setFilter('hardware')">Hardware</div>
   <span class="stat-badge" id="stats"></span>
 </div>
 
 <div class="board" id="board"></div>
+
+<div class="modal-overlay" id="modal-overlay" onclick="closeModal(event)">
+  <div class="modal" id="modal-content"></div>
+</div>
 
 <div class="toast" id="toast"></div>
 
@@ -453,6 +580,111 @@ const SEED_CARDS = [
 
   // Done
   { id: 14, col: 'done', label: 'labs', title: 'Project Concept & Branding', desc: '"Brain Dump" name, logo, mission statement locked. m3rkle_tree as curator confirmed.', priority: 'high' },
+
+  // ── Hardware Cards (rich detail) ──
+  { id: 15, col: 'design', label: 'hardware', title: '🖨️ Entropia Replica — 3D Printer Research', desc: 'Research complete. Recommendation: Bambu Lab P1S ($699). Replicate the Entropia BIP39 seed tablets — 1,024 pills, 24+ hrs print time, Bitcoin orange PLA.', priority: 'high',
+    detail: {
+      summary: 'Research into 3D printing our own version of the Entropia Seed Tablets — a BIP39 lottery system by SeedSigner. 1,024 pill-shaped pieces with raised text on both sides, representing all 2,048 BIP39 words. Sold by Shop Bitcoin AU for $150 AUD.',
+      sections: [
+        { heading: 'What We\'re Replicating', type: 'list', items: [
+          '<b>1,024 pills</b> (2,048 words, printed double-sided)',
+          '<b>11mm × 7.5mm × 3mm</b> each, with <b>3.5pt raised text</b>',
+          'Printed in <b>interconnected sheets</b> (8×16 grids) for bed adhesion',
+          '<b>24+ hours</b> total print time for a full set',
+          'Generated via Python → OpenSCAD → STL (open source)',
+          'Retail: <b>$150 AUD</b> + apothecary jar'
+        ]},
+        { heading: '🏆 Recommended Printer: Bambu Lab P1S — $699', type: 'callout', text: 'CoreXY kinematics + input shaping = crisp 3.5pt text. Enclosed chamber for 24hr reliability. Lidar-assisted first layer for perfect sheet adhesion. AMS-ready for dual-color pills.' },
+        { heading: 'P1S Key Specs', type: 'table', rows: [
+          ['Build Volume', '256 × 256 × 256mm'],
+          ['Chassis', 'CoreXY'],
+          ['Enclosure', 'Yes (passive, 50-55°C)'],
+          ['Max Speed', '500 mm/s'],
+          ['Bed Leveling', 'Lidar'],
+          ['Multi-color', 'AMS (4→16 colors)'],
+          ['Materials', 'PLA ✓, PETG ✓, ABS ✓, ASA ✓'],
+          ['Failure Rate', '2.1% over 240+ hrs testing']
+        ]},
+        { heading: 'Print Settings for Seed Pills', type: 'table', rows: [
+          ['Layer Height', '0.2mm'],
+          ['Hotend', '210°C'],
+          ['Bed', '60°C'],
+          ['Filament', 'Orange PLA (Bitcoin orange)'],
+          ['Adhesion', 'Brim or mouse-ears'],
+          ['Per Sheet', '~3 hours'],
+          ['Full Set', '~24 hours (8 sheets)']
+        ]},
+        { heading: 'Bill of Materials', type: 'table', rows: [
+          ['Bambu Lab P1S', '$699'],
+          ['Bambu AMS (optional, 2-color)', '$359'],
+          ['Orange PLA (2-3 spools)', '~$25/each'],
+          ['Apothecary jar (display)', '~$15-30'],
+          ['Total (single-color)', '$699'],
+          ['Total (multi-color)', '$1,058']
+        ]},
+        { heading: 'Alternatives Considered', type: 'table', rows: [
+          ['Bambu X2D ($699)', 'Dual nozzle, zero waste 2-color. New, less proven'],
+          ['Bambu A2L ($399)', 'Open-frame, risky for 24hr detail prints'],
+          ['Prusa Core One+ ($1,203)', 'Excellent but 2× the price for same result on PLA'],
+          ['Prusa MK4S ($629+)', 'Bed-slinger, no enclosure']
+        ]},
+        { heading: 'References', type: 'list', items: [
+          '<a href="https://shopbitcoin.com.au/products/entropia-seed-tablets-aussie-edition" target="_blank">Entropia Product Page</a>',
+          '<a href="https://github.com/SeedSigner/SeedPills" target="_blank">SeedPills Open Source Repo</a>',
+          '<a href="https://bambulab.com" target="_blank">Bambu Lab</a>',
+          '<a href="https://github.com/ttiiggss/brain-dump-bitcoin-labs/blob/main/docs/3d-printer-research.md" target="_blank">Full Research Doc →</a>'
+        ]}
+      ]
+    }
+  },
+
+  { id: 16, col: 'design', label: 'hardware', title: '🔒 PhantomDrive Security Audit', desc: 'Audit complete. Score: 5.5/10. Adopt with caveats. Open-source encrypted USB with stealth partition. Great teaching tool, not primary security. No secure boot, no firmware signing.', priority: 'high',
+    detail: {
+      summary: 'Security audit of the PhantomDrive — an open-source encrypted USB drive with a hidden partition. Appears as a normal 8GB stick until you write password:YourPass to unlock AES-256 encrypted storage. Reviewed all firmware source code.',
+      sections: [
+        { heading: 'Overall Score: 5.5/10 — Adopt with Caveats', type: 'callout', text: 'Brilliant proof-of-concept. Solid crypto implementation, genuinely stealthy. But no secure boot, no firmware signing, no data integrity. Great teaching tool, not primary security.' },
+        { heading: 'The Good ✅', type: 'list', items: [
+          '<b>Real cryptography:</b> SHA-256, PBKDF2-HMAC-SHA256, AES-256-XTS — same primitives as VeraCrypt',
+          '<b>Tested against OpenSSL</b> with proper verification vectors',
+          '<b>Genuinely stealthy</b> — hidden partition invisible to disk utilities',
+          '<b>Fully open source</b> — MIT licensed, hardware designs included',
+          '<b>Per-device salt</b> derived from chip unique ID',
+          '<b>Configurable KDF</b>: 100K or 600K PBKDF2 iterations'
+        ]},
+        { heading: 'Critical Risks 🔴', type: 'list', items: [
+          '<b>No secure boot:</b> 30 seconds physical access = malicious firmware',
+          '<b>No data integrity:</b> AES-CTR/XTS has no authentication, bit-flip attacks possible',
+          '<b>No firmware signing</b> or anti-rollback protection'
+        ]},
+        { heading: 'High Risks 🟠', type: 'list', items: [
+          '<b>Password in plaintext over USB</b> — keyloggers/sniffers capture it',
+          '<b>Unvalidated AES hardware</b> — WCH CH569W has zero security certification',
+          '<b>Content-based unlock</b> — any write with "password:" triggers it',
+          '<b>No rate limiting</b> on failed attempts'
+        ]},
+        { heading: 'Scoring Breakdown', type: 'table', rows: [
+          ['Cryptography', '7/10'],
+          ['Stealth', '9/10'],
+          ['Physical Security', '2/10'],
+          ['Openness', '10/10'],
+          ['Maturity', '4/10'],
+          ['Value ($65 CAD)', '8/10'],
+          ['Overall', '5.5/10']
+        ]},
+        { heading: 'Verdict for Brain Dump', type: 'list', items: [
+          '<b>Curriculum:</b> Perfect teaching device — flash custom firmware, test attacks',
+          '<b>Personal BTC:</b> Layer it, never sole backup. Steel + multisig first.',
+          '<b>Good for:</b> Stealth transport, plausible deniability, secondary backup',
+          '<b>Bad for:</b> Primary seed storage, unsupervised physical access scenarios'
+        ]},
+        { heading: 'References', type: 'list', items: [
+          '<a href="https://shop.rootkitlabs.com/products/phantomdrive" target="_blank">PhantomDrive Shop</a>',
+          '<a href="https://github.com/o7-machinehum/phantomdrive" target="_blank">Firmware Source</a>',
+          '<a href="https://github.com/ttiiggss/brain-dump-bitcoin-labs/blob/main/docs/phantomdrive-security-audit.md" target="_blank">Full Audit Report →</a>'
+        ]}
+      ]
+    }
+  },
 ];
 
 let cards = [];
@@ -532,9 +764,10 @@ function renderCard(card) {
   el.dataset.id = card.id;
   el.dataset.label = card.label;
   const priorityColor = card.priority === 'high' ? 'var(--red)' : card.priority === 'med' ? 'var(--yellow)' : 'var(--text-dim)';
+  const hasDetail = card.detail ? '<span class="card-detail-badge">📋 details</span>' : '';
   el.innerHTML = `
-    <button class="card-delete" onclick="deleteCard(${card.id})" title="Delete">✕</button>
-    <span class="card-label lab-${card.label}">${labelText(card.label)}</span>
+    <button class="card-delete" onclick="event.stopPropagation(); deleteCard(${card.id})" title="Delete">✕</button>
+    <span class="card-label lab-${card.label}">${labelText(card.label)}</span>${hasDetail}
     <div class="card-title">${escapeHtml(card.title)}</div>
     ${card.desc ? `<div class="card-desc">${escapeHtml(card.desc)}</div>` : ''}
     <div class="card-footer">
@@ -542,6 +775,13 @@ function renderCard(card) {
       <span class="priority-dot" style="background:${priorityColor}" title="Priority: ${card.priority}"></span>
     </div>
   `;
+  if (card.detail) {
+    el.style.cursor = 'pointer';
+    el.addEventListener('click', e => {
+      if (e.target.classList.contains('card-delete')) return;
+      openModal(card);
+    });
+  }
   el.addEventListener('dragstart', e => {
     e.dataTransfer.setData('text/plain', card.id);
     el.classList.add('dragging');
@@ -551,7 +791,7 @@ function renderCard(card) {
 }
 
 function labelText(l) {
-  const map = { labs:'Learning Lab', storage:'Storage', signing:'Signing', privacy:'Privacy', infra:'Infra' };
+  const map = { labs:'Learning Lab', storage:'Storage', signing:'Signing', privacy:'Privacy', infra:'Infra', hardware:'Hardware' };
   return map[l] || l;
 }
 
@@ -637,6 +877,54 @@ function toast(msg) {
   clearTimeout(toastTimer);
   toastTimer = setTimeout(() => t.classList.remove('show'), 2000);
 }
+
+// ── Modal ──
+function openModal(card) {
+  const overlay = document.getElementById('modal-overlay');
+  const modal = document.getElementById('modal-content');
+  let html = `
+    <div class="modal-header">
+      <span class="card-label lab-${card.label}">${labelText(card.label)}</span>
+      <div>
+        <h3>${escapeHtml(card.title)}</h3>
+      </div>
+      <button class="modal-close" onclick="closeModal()">&times;</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-desc">${escapeHtml(card.detail.summary)}</div>
+      <div class="detail-content">
+  `;
+  card.detail.sections.forEach(sec => {
+    if (sec.type === 'list') {
+      html += `<h4>${sec.heading}</h4><ul>`;
+      sec.items.forEach(item => { html += `<li>${item}</li>`; });
+      html += `</ul>`;
+    } else if (sec.type === 'table') {
+      html += `<h4>${sec.heading}</h4><table>`;
+      sec.rows.forEach(row => {
+        html += `<tr><td><b>${row[0]}</b></td><td>${row[1]}</td></tr>`;
+      });
+      html += `</table>`;
+    } else if (sec.type === 'callout') {
+      html += `<div class="callout"><p><b>${sec.heading}</b><br>${sec.text}</p></div>`;
+    }
+  });
+  html += `
+      </div>
+    </div>
+  `;
+  modal.innerHTML = html;
+  overlay.classList.add('active');
+}
+
+function closeModal(e) {
+  if (e && e.target.id !== 'modal-overlay') return;
+  document.getElementById('modal-overlay').classList.remove('active');
+}
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeModal();
+});
 
 // ── Init ──
 loadCards();

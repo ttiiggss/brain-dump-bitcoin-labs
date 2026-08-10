@@ -978,6 +978,164 @@
     </div>
   </div>
 
+  <!-- ── RNG / Entropia Analysis ── -->
+  <div class="research-card">
+    <div class="research-card-banner purple"></div>
+    <div class="research-card-head">
+      <h3>🎲 Entropia RNG Analysis & Better Methods</h3>
+      <span class="research-score">Analog Entropy Deep Dive</span>
+    </div>
+    <div class="research-card-meta">
+      <span class="tag">BIP39</span>
+      <span class="tag">Physical RNG</span>
+      <span class="tag">Dice vs Pills</span>
+      <span class="tag">Hash Extraction</span>
+      <span>📅 Aug 2026</span>
+    </div>
+    <div class="research-card-summary">
+      Entropia generates Bitcoin seeds via physical lottery — drawing 3D-printed pills from a jar. Trustless and analog, but the physical draw introduces measurable bias. Analysis of the weaknesses and 5 better approaches to analog entropy generation.
+    </div>
+    <button class="research-card-toggle" onclick="toggleResearchBody(this)">▼ Expand Full Analysis</button>
+    <div class="research-card-body">
+
+      <h4>How Entropia's RNG Works</h4>
+      <p>Entropia is a <b>physical lottery system</b>. 1,024 double-sided pills in a jar, each face carrying one BIP39 word. You shake, draw 11 or 23 pills, read one side per pill, and feed those words into a SeedSigner which calculates the final checksum word to complete a valid BIP39 seed.</p>
+      <p>The entropy comes entirely from the physical draw — no computer, no PRNG. This is appealing because it's trustless: you don't rely on a chip or software to be honest about randomness.</p>
+
+      <div class="callout">
+        <b>The core question:</b> Is physical randomization of pills in a jar actually uniformly random? <b>Short answer: No.</b> Physical lottery systems have well-documented bias.
+      </div>
+
+      <h4>Why Physical Drawing Is NOT Uniformly Random</h4>
+
+      <div class="research-findings">
+        <div class="finding-box critical">
+          <h5>🔴 Bias Sources</h5>
+          <ul>
+            <li><b>Weight variance:</b> Infill differences, layer seams → heavier pills sink, drawn less</li>
+            <li><b>Friction / static:</b> PLA on glass builds charge → pills clump, drawn in clusters</li>
+            <li><b>Container geometry:</b> Pills near walls/bottom drawn less than center/top</li>
+            <li><b>Human bias:</b> Unconscious favoring of depth, region, orientation</li>
+            <li><b>Side selection:</b> Which face you read is a 1-bit systematic bias per word</li>
+            <li><b>Without-replacement skew:</b> Distribution shifts after each draw</li>
+          </ul>
+        </div>
+        <div class="finding-box critical">
+          <h5>🔴 Why This Matters</h5>
+          <ul>
+            <li>A perfectly random 12-word seed = <b>128 bits</b> of entropy (2¹²⁸)</li>
+            <li>A 10% bias on word selection can reduce effective entropy to ~100 bits</li>
+            <li>An adversary who knows the bias distribution can <b>reduce the keyspace</b></li>
+            <li><b>You can't verify entropy quality</b> after the fact</li>
+            <li>Each 3D-printed set has its own unique bias fingerprint</li>
+            <li>Layer lines, stringing, dimensional tolerance all vary per print</li>
+          </ul>
+        </div>
+      </div>
+
+      <h4>5 Better RNG Methods</h4>
+
+      <h4>Method 1: Casino-Grade Dice (Gold Standard)</h4>
+      <p>Precision dice are manufactured to <b>±0.0001"</b> tolerance — orders of magnitude more uniform than 3D-printed pills (±0.1mm). SeedSigner already has a built-in dice-roll mode.</p>
+      <table>
+        <tr><th>Dice Type</th><th>Bits / Roll</th><th>Rolls for 12-word</th><th>Rolls for 24-word</th></tr>
+        <tr><td><b>D6</b> (standard)</td><td>2.585</td><td>50 rolls</td><td>99 rolls</td></tr>
+        <tr><td><b>D10</b></td><td>3.32</td><td>39 rolls</td><td>78 rolls</td></tr>
+        <tr><td><b>D16</b></td><td>4.0</td><td>32 rolls</td><td>64 rolls</td></tr>
+        <tr><td><b>D20</b></td><td>4.32</td><td>30 rolls</td><td>60 rolls</td></tr>
+      </table>
+      <p style="color: var(--green)"><b>✅ Recommended approach:</b> Roll D6 50 times, input to SeedSigner. Cheap, verifiable, uniform.</p>
+
+      <h4>Method 2: Entropia + Dice Hybrid</h4>
+      <p>Use pills for word selection, but add dice entropy as an unbiased remix layer. Even if the pill draw is biased, the dice rolls ensure full entropy through SHA-256:</p>
+      <div class="callout">
+        <b>Workflow:</b><br>
+        1. Draw 11 pills as normal → record words<br>
+        2. Roll D6 20+ times to generate random salt<br>
+        3. Feed <code>SHA256(pill_words ‖ dice_rolls)</code> into SeedSigner<br>
+        4. Final seed = hash output (uniform regardless of pill bias)
+      </div>
+
+      <h4>Method 3: Hash Extraction (Debias Any Source)</h4>
+      <p>Take <i>any</i> physical entropy source — pills, coin flips, card draws — and run it through SHA-256. The hash acts as a <b>randomness extractor</b>: biased input → uniform output, as long as there's sufficient min-entropy.</p>
+      <table>
+        <tr><th>Step</th><th>Action</th></tr>
+        <tr><td><b>1. Collect</b></td><td>Draw pills, flip coins, roll dice — any analog source</td></tr>
+        <tr><td><b>2. Serialize</b></td><td><code>input = "pill1_word_a|pill2_word_b|..."</code></td></tr>
+        <tr><td><b>3. Hash</b></td><td><code>seed_entropy = SHA256(input)[0:16]</code> (16 bytes = 128 bits)</td></tr>
+        <tr><td><b>4. Convert</b></td><td>Map 16 bytes to 12 BIP39 words (11 + checksum)</td></tr>
+      </table>
+      <p><b>Catch:</b> SHA-256 doesn't create entropy — it just distributes what's there. If input has 100 bits of effective entropy, output has ≤100 bits. Use enough input.</p>
+
+      <h4>Method 4: Multi-Round XOR Debiasing</h4>
+      <p>Draw pills multiple times and XOR the results. Each round's bias is independent, so XOR significantly reduces total bias — same principle as Intel's RDRAND whitening:</p>
+      <div class="callout">
+        <b>Workflow:</b><br>
+        Round 1: Draw 11 pills → convert to 128-bit number <b>A</b><br>
+        Reshake, Round 2: Draw 11 pills → convert to 128-bit number <b>B</b><br>
+        <b>Final entropy = A XOR B</b> (bias drops quadratically)<br>
+        Optional Round 3 for even better uniformity
+      </div>
+
+      <h4>Method 5: Commitment Scheme (Verifiable Fairness)</h4>
+      <p>Prevent any party — including the SeedSigner itself — from biasing the result using a cryptographic commitment. Same principle as coinjoin coordinators:</p>
+      <table>
+        <tr><th>Step</th><th>Action</th></tr>
+        <tr><td><b>1. You commit</b></td><td>Draw pills, hash the words, write down hash <b>H₁</b></td></tr>
+        <tr><td><b>2. SS commits</b></td><td>SeedSigner generates nonce, shows hash <b>H₂</b></td></tr>
+        <tr><td><b>3. Reveal</b></td><td>Both reveal values</td></tr>
+        <tr><td><b>4. Final seed</b></td><td><code>SHA256(your_words ‖ SS_nonce)</code></td></tr>
+      </table>
+      <p>Neither party could bias the result because both committed before revealing. This is how coinjoin coordinators prevent input bias.</p>
+
+      <h4>Comparison: Entropy Quality by Method</h4>
+      <table>
+        <tr><th>Method</th><th>Entropy</th><th>Trustless?</th><th>Effort</th><th>Verifiable?</th></tr>
+        <tr><td>Entropia pills (as-is)</td><td><b style="color:var(--red)">~90-110 bits</b></td><td>✅</td><td>Low</td><td>❌ No</td></tr>
+        <tr><td>D6 dice (50 rolls)</td><td><b style="color:var(--green)">128 bits</b></td><td>✅</td><td>Medium</td><td>✅ Yes</td></tr>
+        <tr><td>D10 dice (39 rolls)</td><td><b style="color:var(--green)">128 bits</b></td><td>✅</td><td>Medium</td><td>✅ Yes</td></tr>
+        <tr><td>Entropia + dice hybrid</td><td><b style="color:var(--green)">128 bits</b></td><td>✅</td><td>Medium</td><td>✅ Yes</td></tr>
+        <tr><td>Hash extraction</td><td><b style="color:var(--yellow)">≤ input entropy</b></td><td>✅</td><td>Low</td><td>⚠️ Depends</td></tr>
+        <tr><td>Multi-round XOR</td><td><b style="color:var(--green)">~128 bits</b></td><td>✅</td><td>High</td><td>✅ Yes</td></tr>
+        <tr><td>Commitment scheme</td><td><b style="color:var(--green)">128 bits</b></td><td>✅</td><td>High</td><td>✅ Yes</td></tr>
+      </table>
+
+      <h4>Recommendation for Brain Dump</h4>
+      <div class="research-findings">
+        <div class="finding-box good">
+          <h5>✅ For Actual Seed Generation</h5>
+          <ul>
+            <li><b>Use precision dice</b> (D6 or D10), not pills alone</li>
+            <li>SeedSigner has built-in dice mode — roll 50× D6, done</li>
+            <li>If using Entropia, <b>always pair with dice or hash extraction</b></li>
+            <li>Never rely on physical draw bias without debiasing</li>
+          </ul>
+        </div>
+        <div class="finding-box good">
+          <h5>🎓 For Curriculum (Lab Module)</h5>
+          <ul>
+            <li><b>"Is Your RNG Really Random?"</b> — flagship lab concept</li>
+            <li>Students draw seeds with pills, analyze distribution bias</li>
+            <li>Compare vs precision dice — measure the difference</li>
+            <li>Brute-force biased vs uniform seeds — see keyspace impact</li>
+            <li>Practice hash extraction, XOR debiasing, commitment schemes</li>
+          </ul>
+        </div>
+      </div>
+
+      <h4>References</h4>
+      <ul>
+        <li><a href="https://github.com/SeedSigner/SeedPills" target="_blank">SeedPills Repo (physical lottery system)</a></li>
+        <li><a href="https://shopbitcoin.com.au/products/entropia-seed-tablets-aussie-edition" target="_blank">Entropia Product Page</a></li>
+        <li><a href="https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki" target="_blank">BIP39 Spec (word list + checksum)</a></li>
+        <li><a href="https://seedsigner.com/explainer/seed-generation/" target="_blank">SeedSigner Dice Roll Guide</a></li>
+        <li><a href="https://en.wikipedia.org/wiki/Randomness_extractor" target="_blank">Randomness Extractors (Wikipedia)</a></li>
+        <li><a href="https://en.wikipedia.org/wiki/XOR_cipher#Implementation" target="_blank">XOR Debiasing / Whitening</a></li>
+      </ul>
+
+    </div>
+  </div>
+
 </div>
 
 <div class="toast" id="toast"></div>

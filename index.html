@@ -90,6 +90,217 @@
   }
   .header-actions .by b { color: var(--purple); }
 
+  /* Nav toggle */
+  .nav-toggle {
+    display: flex;
+    gap: 2px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 3px;
+  }
+  .nav-toggle button {
+    background: transparent;
+    border: none;
+    color: var(--text-dim);
+    font-size: 12px;
+    font-weight: 600;
+    padding: 5px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .nav-toggle button:hover { color: var(--text); }
+  .nav-toggle button.active {
+    background: var(--accent);
+    color: #fff;
+  }
+
+  /* Research section */
+  .research-section {
+    display: none;
+    padding: 24px 28px;
+    max-width: 900px;
+  }
+  .research-section.active { display: block; }
+  .research-section.hidden,
+  .board.hidden,
+  .toolbar.hidden { display: none; }
+
+  .research-header {
+    margin-bottom: 24px;
+  }
+  .research-header h2 {
+    font-size: 22px;
+    font-weight: 800;
+    margin-bottom: 4px;
+  }
+  .research-header p {
+    font-size: 13px;
+    color: var(--text-dim);
+  }
+
+  .research-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    margin-bottom: 20px;
+    overflow: hidden;
+    transition: border-color 0.2s;
+  }
+  .research-card:hover { border-color: var(--text-dim); }
+
+  .research-card-banner {
+    height: 4px;
+    background: var(--accent);
+  }
+  .research-card-banner.purple { background: var(--purple); }
+  .research-card-banner.red { background: var(--red); }
+  .research-card-banner.blue { background: var(--blue); }
+  .research-card-banner.green { background: var(--green); }
+
+  .research-card-head {
+    padding: 18px 24px 12px;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .research-card-head h3 {
+    font-size: 17px;
+    font-weight: 700;
+    flex: 1;
+    min-width: 200px;
+  }
+  .research-score {
+    background: var(--accent-dim);
+    border: 1px solid rgba(247,147,26,0.3);
+    border-radius: 8px;
+    padding: 4px 12px;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--accent);
+    white-space: nowrap;
+  }
+
+  .research-card-meta {
+    padding: 0 24px 12px;
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .research-card-meta span {
+    font-size: 11px;
+    color: var(--text-dim);
+  }
+  .research-card-meta .tag {
+    background: var(--bg-board);
+    border: 1px solid var(--border);
+    padding: 2px 8px;
+    border-radius: 4px;
+  }
+
+  .research-card-summary {
+    padding: 0 24px 14px;
+    font-size: 14px;
+    color: var(--text-dim);
+    line-height: 1.6;
+  }
+
+  .research-card-toggle {
+    width: 100%;
+    background: var(--bg-board);
+    border: none;
+    border-top: 1px solid var(--border);
+    color: var(--text-dim);
+    font-size: 13px;
+    font-weight: 600;
+    padding: 10px;
+    cursor: pointer;
+    transition: color 0.15s;
+  }
+  .research-card-toggle:hover { color: var(--accent); }
+
+  .research-card-body {
+    display: none;
+    padding: 0 24px 24px;
+    border-top: 1px solid var(--border);
+  }
+  .research-card-body.open { display: block; }
+
+  .research-card-body h4 {
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--accent);
+    margin: 20px 0 8px;
+  }
+  .research-card-body p { font-size: 13px; color: var(--text-dim); line-height: 1.7; margin-bottom: 8px; }
+  .research-card-body ul { margin: 4px 0 12px 20px; }
+  .research-card-body li { font-size: 13px; color: var(--text-dim); margin-bottom: 5px; line-height: 1.6; }
+  .research-card-body li b { color: var(--text); }
+  .research-card-body table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 8px 0 16px;
+    font-size: 12px;
+  }
+  .research-card-body th {
+    text-align: left;
+    padding: 6px 10px;
+    background: var(--bg-board);
+    color: var(--text);
+    font-weight: 600;
+    border-bottom: 1px solid var(--border);
+  }
+  .research-card-body td {
+    padding: 6px 10px;
+    border-bottom: 1px solid rgba(48,54,61,0.5);
+    color: var(--text-dim);
+    font-size: 12px;
+  }
+  .research-card-body td b { color: var(--text); }
+  .research-card-body a { color: var(--blue); text-decoration: none; }
+  .research-card-body a:hover { text-decoration: underline; }
+  .research-card-body .callout {
+    background: var(--accent-dim);
+    border: 1px solid rgba(247,147,26,0.3);
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin: 12px 0;
+    font-size: 13px;
+    color: var(--text);
+    line-height: 1.6;
+  }
+  .research-card-body .callout b { color: var(--accent); }
+
+  .research-findings {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin: 12px 0;
+  }
+  .research-findings .finding-box {
+    background: var(--bg-board);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px 14px;
+  }
+  .research-findings .finding-box h5 {
+    font-size: 12px;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+  .research-findings .finding-box.critical h5 { color: var(--red); }
+  .research-findings .finding-box.good h5 { color: var(--green); }
+  .research-findings .finding-box ul { margin: 4px 0 0 16px; }
+  .research-findings .finding-box li { font-size: 12px; margin-bottom: 3px; }
+
+  @media (max-width: 768px) {
+    .research-findings { grid-template-columns: 1fr; }
+  }
+
   /* Toolbar */
   .toolbar {
     display: flex;
@@ -518,6 +729,10 @@
     <p>Project board by m3rkle_tree — self-custody, security & hands-on learning modules</p>
   </div>
   <div class="header-actions">
+    <div class="nav-toggle">
+      <button class="active" id="nav-board" onclick="switchView('board')">📋 Board</button>
+      <button id="nav-research" onclick="switchView('research')">🔬 Research</button>
+    </div>
     <span class="by">curated by <b>m3rkle_tree</b></span>
   </div>
 </header>
@@ -538,6 +753,231 @@
 
 <div class="modal-overlay" id="modal-overlay" onclick="closeModal(event)">
   <div class="modal" id="modal-content"></div>
+</div>
+
+<div class="research-section" id="research-section">
+
+  <div class="research-header">
+    <h2>🔬 Research</h2>
+    <p>Hardware reviews, security audits, and product research for Brain Dump modules</p>
+  </div>
+
+  <!-- ── PhantomDrive ── -->
+  <div class="research-card">
+    <div class="research-card-banner red"></div>
+    <div class="research-card-head">
+      <h3>🔒 PhantomDrive Security Audit</h3>
+      <span class="research-score">Score: 5.5 / 10</span>
+    </div>
+    <div class="research-card-meta">
+      <span class="tag">$65 CAD</span>
+      <span class="tag">CH569W RISC-V</span>
+      <span class="tag">AES-256-XTS</span>
+      <span class="tag">Open Source (MIT)</span>
+      <span>📅 Aug 2026</span>
+    </div>
+    <div class="research-card-summary">
+      Open-source encrypted USB drive with a stealth hidden partition. Appears as a normal 8GB stick until you write <code style="color:var(--accent)">password:YourPass</code> to unlock AES-256 encrypted storage. Full firmware source code reviewed.
+    </div>
+    <button class="research-card-toggle" onclick="toggleResearchBody(this)">▼ Expand Full Audit</button>
+    <div class="research-card-body">
+
+      <h4>What It Is</h4>
+      <p>PhantomDrive is built by Ryan Walker (o7-machinehum) at Rootkit Labs. It uses a WCH CH569W RISC-V microcontroller with USB 3.0, SDIO, and a hardware AES block. The device presents as an ordinary 8GB flash drive, but hides a second encrypted partition that only appears after authentication.</p>
+
+      <div class="callout">
+        <b>Verdict:</b> Brilliant proof-of-concept with solid crypto and genuine stealth. But no secure boot, no firmware signing, no data integrity. <b>Great teaching tool for Brain Dump labs, not primary security for Bitcoin storage.</b>
+      </div>
+
+      <h4>Findings at a Glance</h4>
+      <div class="research-findings">
+        <div class="finding-box good">
+          <h5>✅ Strengths</h5>
+          <ul>
+            <li>Standards-based crypto (SHA-256, PBKDF2, AES-XTS)</li>
+            <li>Hardware AES acceleration (no timing side-channels)</li>
+            <li>Test vectors verified against OpenSSL</li>
+            <li>Genuinely invisible hidden partition</li>
+            <li>Fully open source (MIT), hardware designs included</li>
+            <li>Per-device salt from chip unique ID</li>
+            <li>Configurable KDF: 100K or 600K iterations</li>
+          </ul>
+        </div>
+        <div class="finding-box critical">
+          <h5>🔴 Critical Risks</h5>
+          <ul>
+            <li><b>No secure boot</b> — firmware replaceable via USB</li>
+            <li><b>No data integrity</b> — no HMAC/AEAD, bit-flip possible</li>
+            <li><b>No firmware signing</b> or anti-rollback</li>
+            <li><b>Plaintext password over USB</b> (keyloggers capture it)</li>
+            <li><b>Unvalidated AES hardware</b> — WCH chip, zero certification</li>
+            <li><b>No rate limiting</b> on failed unlock attempts</li>
+            <li><b>Default 100K KDF</b> iterations too low</li>
+          </ul>
+        </div>
+      </div>
+
+      <h4>Threat Model</h4>
+      <table>
+        <tr><th>Threat</th><th>Resists?</th><th>Notes</th></tr>
+        <tr><td>Casual inspection (border)</td><td><b style="color:var(--green)">✅ Yes</b></td><td>Looks like normal 8GB USB drive</td></tr>
+        <tr><td>Disk forensics (software)</td><td><b style="color:var(--green)">✅ Yes</b></td><td>No visible encrypted headers</td></tr>
+        <tr><td>Host keylogger</td><td><b style="color:var(--red)">🔴 No</b></td><td>Password written as plaintext file</td></tr>
+        <tr><td>USB hardware sniffer</td><td><b style="color:var(--red)">🔴 No</b></td><td>Bulk transfer data is plaintext</td></tr>
+        <tr><td>Physical access (Evil Maid)</td><td><b style="color:var(--red)">🔴 No</b></td><td>No secure boot, firmware replaceable</td></tr>
+        <tr><td>Offline SD card extraction</td><td><b style="color:var(--yellow)">⚠️ Partial</b></td><td>Encrypted but brute-force possible</td></tr>
+        <tr><td>Compelled disclosure</td><td><b style="color:var(--yellow)">⚠️ Partial</b></td><td>Decoy partition = plausible deniability</td></tr>
+      </table>
+
+      <h4>Cryptography Stack</h4>
+      <table>
+        <tr><th>Component</th><th>Implementation</th><th>Assessment</th></tr>
+        <tr><td><b>Hash</b></td><td>SHA-256 (custom, FIPS 180-4)</td><td>✅ Matches standard</td></tr>
+        <tr><td><b>KDF</b></td><td>PBKDF2-HMAC-SHA256 (100K or 600K)</td><td>✅ Correct, 600K recommended</td></tr>
+        <tr><td><b>Cipher</b></td><td>AES-256-CTR or AES-256-XTS</td><td>✅ XTS is disk-encryption standard</td></tr>
+        <tr><td><b>Salt</b></td><td>8 bytes from chip unique ID</td><td>⚠️ Short but functional</td></tr>
+        <tr><td><b>Hardware AES</b></td><td>CH569W ECDC block</td><td>⚠️ Unvalidated, no certification</td></tr>
+        <tr><td><b>Integrity</b></td><td>None</td><td>🔴 No HMAC or AEAD</td></tr>
+      </table>
+
+      <h4>Scoring Breakdown</h4>
+      <table>
+        <tr><th>Category</th><th>Score</th></tr>
+        <tr><td><b>Cryptography</b></td><td>7/10</td></tr>
+        <tr><td><b>Stealth</b></td><td>9/10</td></tr>
+        <tr><td><b>Physical Security</b></td><td>2/10</td></tr>
+        <tr><td><b>Openness</b></td><td>10/10</td></tr>
+        <tr><td><b>Maturity</b></td><td>4/10</td></tr>
+        <tr><td><b>Value ($65 CAD)</b></td><td>8/10</td></tr>
+        <tr><td style="border-top: 2px solid var(--accent)"><b>Overall</b></td><td style="border-top: 2px solid var(--accent)"><b style="color:var(--accent)">5.5/10</b></td></tr>
+      </table>
+
+      <h4>Recommendation for Brain Dump</h4>
+      <div class="research-findings">
+        <div class="finding-box good">
+          <h5>✅ Use It For</h5>
+          <ul>
+            <li><b>Curriculum:</b> Flash custom firmware, test attack vectors</li>
+            <li><b>Stealth transport</b> of non-critical data</li>
+            <li><b>Plausible deniability</b> demos (decoy partition)</li>
+            <li><b>Secondary backup</b> layer (not sole copy)</li>
+          </ul>
+        </div>
+        <div class="finding-box critical">
+          <h5>🔴 Don't Use For</h5>
+          <ul>
+            <li><b>Primary seed phrase storage</b> — use steel + multisig</li>
+            <li><b>Funds you can't afford to lose</b></li>
+            <li><b>Unsupervised physical access</b> scenarios</li>
+            <li><b>High-security opsec</b> where firmware integrity matters</li>
+          </ul>
+        </div>
+      </div>
+
+      <h4>References</h4>
+      <ul>
+        <li><a href="https://shop.rootkitlabs.com/products/phantomdrive" target="_blank">PhantomDrive Shop (Rootkit Labs)</a></li>
+        <li><a href="https://github.com/o7-machinehum/phantomdrive" target="_blank">Firmware Source Code (GitHub)</a></li>
+        <li><a href="https://hackaday.com/2026/08/06/phantomdrive-keeps-your-secrets-out-of-sight/" target="_blank">Hackaday Coverage</a></li>
+        <li><a href="https://www.wch-ic.com/products/CH569.html" target="_blank">CH569W Datasheet (WCH)</a></li>
+        <li><a href="https://github.com/ttiiggss/brain-dump-bitcoin-labs/blob/main/docs/phantomdrive-security-audit.md" target="_blank">📋 Full Audit Report (Markdown)</a></li>
+      </ul>
+
+    </div>
+  </div>
+
+  <!-- ── Entropia / 3D Printer ── -->
+  <div class="research-card">
+    <div class="research-card-banner"></div>
+    <div class="research-card-head">
+      <h3>🖨️ Entropia Replica — 3D Printer Research</h3>
+      <span class="research-score">Pick: Bambu Lab P1S</span>
+    </div>
+    <div class="research-card-meta">
+      <span class="tag">$699 USD</span>
+      <span class="tag">CoreXY</span>
+      <span class="tag">AMS Multi-color</span>
+      <span class="tag">PLA / ABS / ASA</span>
+      <span>📅 Aug 2026</span>
+    </div>
+    <div class="research-card-summary">
+      Research into 3D printing our own Entropia BIP39 seed tablets — 1,024 pill-shaped pieces with raised text, representing all 2,048 BIP39 words. Recommendation: Bambu Lab P1S for CoreXY precision, 24hr reliability, and optional dual-color via AMS.
+    </div>
+    <button class="research-card-toggle" onclick="toggleResearchBody(this)">▼ Expand Full Research</button>
+    <div class="research-card-body">
+
+      <h4>What We're Replicating</h4>
+      <p>The <a href="https://shopbitcoin.com.au/products/entropia-seed-tablets-aussie-edition" target="_blank">Entropia Seed Tablets</a> by SeedSigner — a BIP39 lottery system. Open source files at <a href="https://github.com/SeedSigner/SeedPills" target="_blank">github.com/SeedSigner/SeedPills</a>.</p>
+      <ul>
+        <li><b>1,024 pills</b> (2,048 words, printed double-sided)</li>
+        <li><b>11mm × 7.5mm × 3mm</b> each, with <b>3.5pt raised text</b> on both sides</li>
+        <li>Printed in <b>interconnected sheets</b> (8×16 grids) for bed adhesion</li>
+        <li><b>24+ hours</b> total print time for a full set</li>
+        <li>Generated via Python → OpenSCAD → STL</li>
+        <li>Retail: <b>$150 AUD</b> + apothecary jar</li>
+      </ul>
+
+      <div class="callout">
+        <b>🏆 Recommended: Bambu Lab P1S — $699</b><br>
+        CoreXY kinematics + input shaping = crisp 3.5pt text. Enclosed chamber for 24hr reliability. Lidar-assisted first layer for perfect sheet adhesion. AMS-ready for dual-color pills.
+      </div>
+
+      <h4>P1S Key Specs</h4>
+      <table>
+        <tr><th>Spec</th><th>Detail</th></tr>
+        <tr><td><b>Build Volume</b></td><td>256 × 256 × 256mm</td></tr>
+        <tr><td><b>Chassis</b></td><td>CoreXY</td></tr>
+        <tr><td><b>Enclosure</b></td><td>Yes (passive, 50-55°C)</td></tr>
+        <tr><td><b>Max Speed</b></td><td>500 mm/s</td></tr>
+        <tr><td><b>Bed Leveling</b></td><td>Lidar</td></tr>
+        <tr><td><b>Multi-color</b></td><td>AMS (4→16 colors)</td></tr>
+        <tr><td><b>Materials</b></td><td>PLA ✓, PETG ✓, ABS ✓, ASA ✓</td></tr>
+        <tr><td><b>Failure Rate</b></td><td>2.1% over 240+ hrs testing</td></tr>
+      </table>
+
+      <h4>Print Settings for Seed Pills</h4>
+      <table>
+        <tr><th>Setting</th><th>Value</th></tr>
+        <tr><td><b>Layer Height</b></td><td>0.2mm</td></tr>
+        <tr><td><b>Hotend</b></td><td>210°C</td></tr>
+        <tr><td><b>Bed</b></td><td>60°C</td></tr>
+        <tr><td><b>Filament</b></td><td>Orange PLA (Bitcoin orange)</td></tr>
+        <tr><td><b>Adhesion</b></td><td>Brim or mouse-ears on corners</td></tr>
+        <tr><td><b>Per Sheet</b></td><td>~3 hours</td></tr>
+        <tr><td><b>Full Set (8 sheets)</b></td><td>~24 hours total</td></tr>
+      </table>
+
+      <h4>Bill of Materials</h4>
+      <table>
+        <tr><th>Item</th><th>Price</th></tr>
+        <tr><td><b>Bambu Lab P1S</b></td><td>$699</td></tr>
+        <tr><td><b>Bambu AMS</b> (optional, 2-color)</td><td>$359</td></tr>
+        <tr><td><b>Orange PLA</b> (2-3 spools)</td><td>~$25/each</td></tr>
+        <tr><td><b>Apothecary jar</b> (display)</td><td>~$15-30</td></tr>
+        <tr><td><b>Total (single-color)</b></td><td><b>$699</b></td></tr>
+        <tr><td><b>Total (multi-color)</b></td><td><b>$1,058</b></td></tr>
+      </table>
+
+      <h4>Alternatives Considered</h4>
+      <table>
+        <tr><th>Printer</th><th>Verdict</th></tr>
+        <tr><td><b>Bambu X2D ($699)</b></td><td>Dual nozzle = zero-waste 2-color. New, less proven</td></tr>
+        <tr><td><b>Bambu A2L ($399)</b></td><td>Open-frame bed-slinger. Risky for 24hr detail prints</td></tr>
+        <tr><td><b>Prusa Core One+ ($1,203)</b></td><td>Excellent but 2× the price for same result on PLA</td></tr>
+        <tr><td><b>Prusa MK4S ($629+)</b></td><td>Bed-slinger, no enclosure. Worse for long detail prints</td></tr>
+      </table>
+
+      <h4>References</h4>
+      <ul>
+        <li><a href="https://shopbitcoin.com.au/products/entropia-seed-tablets-aussie-edition" target="_blank">Entropia Product Page (Shop Bitcoin AU)</a></li>
+        <li><a href="https://github.com/SeedSigner/SeedPills" target="_blank">SeedPills Open Source Repo</a></li>
+        <li><a href="https://bambulab.com" target="_blank">Bambu Lab</a></li>
+        <li><a href="https://github.com/ttiiggss/brain-dump-bitcoin-labs/blob/main/docs/3d-printer-research.md" target="_blank">📋 Full Research Doc (Markdown)</a></li>
+      </ul>
+
+    </div>
+  </div>
+
 </div>
 
 <div class="toast" id="toast"></div>
@@ -876,6 +1316,35 @@ function toast(msg) {
   t.classList.add('show');
   clearTimeout(toastTimer);
   toastTimer = setTimeout(() => t.classList.remove('show'), 2000);
+}
+
+// ── View Toggle ──
+function switchView(view) {
+  const board = document.getElementById('board');
+  const toolbar = document.querySelector('.toolbar');
+  const research = document.getElementById('research-section');
+  const navBoard = document.getElementById('nav-board');
+  const navResearch = document.getElementById('nav-research');
+
+  if (view === 'research') {
+    board.classList.add('hidden');
+    toolbar.classList.add('hidden');
+    research.classList.add('active');
+    navBoard.classList.remove('active');
+    navResearch.classList.add('active');
+  } else {
+    board.classList.remove('hidden');
+    toolbar.classList.remove('hidden');
+    research.classList.remove('active');
+    navBoard.classList.add('active');
+    navResearch.classList.remove('active');
+  }
+}
+
+function toggleResearchBody(btn) {
+  const body = btn.nextElementSibling;
+  const isOpen = body.classList.toggle('open');
+  btn.textContent = isOpen ? '▲ Collapse' : '▼ Expand Full Audit';
 }
 
 // ── Modal ──

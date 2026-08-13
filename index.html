@@ -301,6 +301,215 @@
     .research-findings { grid-template-columns: 1fr; }
   }
 
+  /* Guides section */
+  .guides-section {
+    display: none;
+    padding: 24px 28px;
+    max-width: 950px;
+  }
+  .guides-section.active { display: block; }
+
+  .guide-header {
+    margin-bottom: 24px;
+  }
+  .guide-header h2 {
+    font-size: 22px;
+    font-weight: 800;
+    margin-bottom: 4px;
+  }
+  .guide-header p {
+    font-size: 13px;
+    color: var(--text-dim);
+  }
+
+  .guide-toc {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 18px 22px;
+    margin-bottom: 24px;
+  }
+  .guide-toc h3 {
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--accent);
+    margin-bottom: 12px;
+  }
+  .guide-toc ul {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px 24px;
+  }
+  @media (max-width: 768px) {
+    .guide-toc ul { grid-template-columns: 1fr; }
+  }
+  .guide-toc li {
+    font-size: 13px;
+    color: var(--text-dim);
+  }
+  .guide-toc a {
+    color: var(--blue);
+    text-decoration: none;
+  }
+  .guide-toc a:hover { text-decoration: underline; }
+
+  .guide-section {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    margin-bottom: 20px;
+    overflow: hidden;
+  }
+
+  .guide-section-banner {
+    height: 4px;
+    background: var(--accent);
+  }
+  .guide-section-banner.red { background: var(--red); }
+  .guide-section-banner.green { background: var(--green); }
+  .guide-section-banner.blue { background: var(--blue); }
+  .guide-section-banner.yellow { background: var(--yellow); }
+
+  .guide-section-title {
+    padding: 16px 22px 12px;
+    font-size: 16px;
+    font-weight: 700;
+  }
+
+  .guide-section-body {
+    padding: 0 22px 20px;
+    font-size: 14px;
+    line-height: 1.75;
+    color: var(--text);
+  }
+
+  .guide-section-body h4 {
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--accent);
+    margin: 20px 0 8px;
+  }
+  .guide-section-body p { margin-bottom: 10px; color: var(--text-dim); }
+  .guide-section-body ul { margin: 4px 0 12px 22px; }
+  .guide-section-body li { margin-bottom: 6px; line-height: 1.6; color: var(--text-dim); }
+  .guide-section-body li b { color: var(--text); }
+  .guide-section-body code {
+    background: var(--bg-board);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-size: 12px;
+    font-family: "SF Mono", "Fira Code", monospace;
+    color: var(--accent);
+  }
+  .guide-section-body pre {
+    background: var(--bg-board);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 14px 16px;
+    overflow-x: auto;
+    margin: 12px 0;
+  }
+  .guide-section-body pre code {
+    background: transparent;
+    border: none;
+    padding: 0;
+    font-size: 12px;
+    line-height: 1.5;
+    color: var(--text);
+  }
+  .guide-section-block {
+    background: var(--bg-board);
+    border-left: 3px solid var(--accent);
+    border-radius: 0 8px 8px 0;
+    padding: 14px 16px;
+    margin: 12px 0;
+  }
+  .guide-section-block.warning {
+    border-left-color: var(--yellow);
+  }
+  .guide-section-block.error {
+    border-left-color: var(--red);
+  }
+  .guide-section-block.success {
+    border-left-color: var(--green);
+  }
+  .guide-section-block p { color: var(--text); margin: 0; }
+  .guide-section-block p b { color: var(--accent); }
+  .guide-section-block.warning p b { color: var(--yellow); }
+  .guide-section-block.error p b { color: var(--red); }
+  .guide-section-block.success p b { color: var(--green); }
+
+  .guide-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 10px 0 16px;
+    font-size: 12px;
+  }
+  .guide-table th {
+    text-align: left;
+    padding: 8px 12px;
+    background: var(--bg-board);
+    color: var(--text);
+    font-weight: 600;
+    border-bottom: 1px solid var(--border);
+  }
+  .guide-table td {
+    padding: 8px 12px;
+    border-bottom: 1px solid rgba(48,54,61,0.5);
+    color: var(--text-dim);
+  }
+  .guide-table td b { color: var(--text); }
+  .guide-table tr:last-child td { border-bottom: none; }
+
+  .guide-hardware-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin: 12px 0;
+  }
+  @media (max-width: 768px) {
+    .guide-hardware-grid { grid-template-columns: 1fr; }
+  }
+  .guide-hardware-item {
+    background: var(--bg-board);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px 14px;
+  }
+  .guide-hardware-item h5 {
+    font-size: 12px;
+    font-weight: 700;
+    margin-bottom: 6px;
+    color: var(--text);
+  }
+  .guide-hardware-item p {
+    font-size: 12px;
+    color: var(--text-dim);
+    margin: 0;
+  }
+  .guide-hardware-item.required h5 { color: var(--red); }
+  .guide-hardware-item.optional h5 { color: var(--text-dim); }
+
+  .guide-faq-item {
+    margin-bottom: 12px;
+  }
+  .guide-faq-item h5 {
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 4px;
+    color: var(--text);
+  }
+  .guide-faq-item p {
+    font-size: 13px;
+    color: var(--text-dim);
+    margin: 0;
+  }
+
   /* Toolbar */
   .toolbar {
     display: flex;
@@ -732,6 +941,7 @@
     <div class="nav-toggle">
       <button class="active" id="nav-board" onclick="switchView('board')">📋 Board</button>
       <button id="nav-research" onclick="switchView('research')">🔬 Research</button>
+      <button id="nav-guides" onclick="switchView('guides')">📚 Guides</button>
     </div>
     <span class="by">curated by <b>m3rkle_tree</b></span>
   </div>
@@ -1138,6 +1348,360 @@
 
 </div>
 
+<div class="guides-section" id="guides-section">
+
+  <div class="guide-header">
+    <h2>📚 Guides</h2>
+    <p>Step-by-step installation guides and tutorials</p>
+  </div>
+
+  <div class="guide-toc">
+    <h3>Table of Contents</h3>
+    <ul>
+      <li><a href="#guide-overview">Overview & Requirements</a></li>
+      <li><a href="#guide-firmware">Firmware Compatibility</a></li>
+      <li><a href="#guide-hardware">Hardware Requirements</a></li>
+      <li><a href="#guide-settings">PS5 Settings Configuration</a></li>
+      <li><a href="#guide-linux-image">Getting a Linux Image</a></li>
+      <li><a href="#guide-flash">Flashing the Image</a></li>
+      <li><a href="#guide-jailbreak">Jailbreak (Firmware 3.00-5.50)</a></li>
+      <li><a href="#guide-jailbreak-new">Jailbreak (Firmware 6.00-7.61)</a></li>
+      <li><a href="#guide-payload">Sending the Payload</a></li>
+      <li><a href="#guide-first-boot">First Boot Configuration</a></li>
+      <li><a href="#guide-m2">M.2 SSD Installation</a></li>
+      <li><a href="#guide-performance">Fan & Boost Control</a></li>
+      <li><a href="#guide-faq">FAQ</a></li>
+    </ul>
+  </div>
+
+  <!-- Overview -->
+  <div class="guide-section" id="guide-overview">
+    <div class="guide-section-banner blue"></div>
+    <div class="guide-section-title">Overview</div>
+    <div class="guide-section-body">
+      <p><b>ps5-linux</b> transforms your PS5 (Phat and Slim) into a fully-functional Linux PC. By leveraging patched hypervisor vulnerabilities, you can unlock the full hardware potential — 8 CPU cores at 3.5 GHz, GPU at 2.23 GHz, HDMI 4K60 output, M.2 SSD support, all USB ports, Ethernet, and even internal Bluetooth.</p>
+      <p>This is a <b>soft-mod</b>: the internal SSD is not modified, and you can continue using your PS5 normally. You'll need to re-run the exploit each time you want to boot into Linux.</p>
+      <div class="guide-section-block success">
+        <p><b>Performance:</b> Capable of running Steam games and various emulators with fluidity on a AMDGPU-powered Linux desktop.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Firmware -->
+  <div class="guide-section" id="guide-firmware">
+    <div class="guide-section-banner yellow"></div>
+    <div class="guide-section-title">Firmware Compatibility</div>
+    <div class="guide-section-body">
+      <p>ps5-linux only supports specific firmware versions on PS5 Phat and Slim. If you're on an unsupported firmware, you may need to update — <b>downgrading is not possible.</b></p>
+      <table class="guide-table">
+        <tr><th>Firmware</th><th>M.2 Support</th></tr>
+        <tr><td>3.00, 3.10, 3.20, 3.21</td><td><b style="color:var(--red)">No</b></td></tr>
+        <tr><td>4.00, 4.02, 4.03, 4.50, 4.51</td><td><b style="color:var(--green)">Yes</b></td></tr>
+        <tr><td>5.00, 5.02, 5.10, 5.50</td><td><b style="color:var(--green)">Yes</b></td></tr>
+        <tr><td>6.00, 6.02, 6.50</td><td><b style="color:var(--green)">Yes</b></td></tr>
+        <tr><td>7.00, 7.01, 7.20, 7.40, 7.60, 7.61</td><td><b style="color:var(--green)">Yes</b></td></tr>
+      </table>
+      <p>To update: download the correct PUP from <a href="https://darthsternie.net/ps5-firmwares/" target="_blank">darthsternie.net</a> and follow Sony's safe mode reinstall guide.</p>
+    </div>
+  </div>
+
+  <!-- Hardware -->
+  <div class="guide-section" id="guide-hardware">
+    <div class="guide-section-banner"></div>
+    <div class="guide-section-title">Hardware Requirements</div>
+    <div class="guide-section-body">
+      <div class="guide-hardware-grid">
+        <div class="guide-hardware-item required">
+          <h5>USB Drive (Required)</h5>
+          <p>Minimum 64GB. External SSD strongly recommended for performance. This will run Linux.</p>
+        </div>
+        <div class="guide-hardware-item required">
+          <h5>USB Keyboard/Mouse (Required)</h5>
+          <p>Wired or dongle-based wireless. DualSense works via Bluetooth.</p>
+        </div>
+        <div class="guide-hardware-item optional">
+          <h5>USB WLAN Adapter (Optional)</h5>
+          <p>For Wi-Fi internet. Internal WLAN only supported on Marvell chipsets.</p>
+        </div>
+        <div class="guide-hardware-item optional">
+          <h5>M.2 SSD (Optional)</h5>
+          <p>PS5-compatible M.2 for dedicated Linux partition. See official guide.</p>
+        </div>
+        <div class="guide-hardware-item optional">
+          <h5>Bluetooth Dongle (Optional)</h5>
+          <p>To connect DualSense controller if internal Bluetooth isn't desired.</p>
+        </div>
+        <div class="guide-hardware-item optional">
+          <h5>PC or Laptop (Optional)</h5>
+          <p>For sending payloads and running jailbreak host scripts.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Settings -->
+  <div class="guide-section" id="guide-settings">
+    <div class="guide-section-banner red"></div>
+    <div class="guide-section-title">PS5 Settings Configuration</div>
+    <div class="guide-section-body">
+      <h4>CRITICAL Settings</h4>
+      <ul>
+        <li>Enable Rest Mode USB power: <code>Settings → System → Power Saving → Features Available in Rest Mode → Supply Power to USB Ports = Always</code></li>
+        <li>Disable HDMI Device Link: <code>Settings → HDMI → Enable HDMI Device Link = Off</code></li>
+      </ul>
+      <div class="guide-section-block warning">
+        <p><b>IMPORTANT:</b> If you reset your PS5 settings or reinstall firmware, you <b>must reapply</b> these settings. Failure to enable rest mode USB power will prevent Linux from booting.</p>
+      </div>
+      <h4>Recommended Settings</h4>
+      <ul>
+        <li>Disable automatic updates: <code>Settings → System Software → System Software Update and Settings</code></li>
+        <li>Disable automatic error reporting: <code>Settings → System Software → Report System Software Errors Automatically</code></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Linux Image -->
+  <div class="guide-section" id="guide-linux-image">
+    <div class="guide-section-banner green"></div>
+    <div class="guide-section-title">Getting a Linux Image</div>
+    <div class="guide-section-body">
+      <h4>Option 1: Download Pre-built Image (Recommended)</h4>
+      <p>Download from <a href="https://github.com/ps5-linux/ps5-linux-image/releases/tag/latest" target="_blank">ps5-linux-image releases</a>. Recommended: <code>ps5-ubuntu2604.img.xz</code>. Unpack the <code>.xz</code> file (use 7-Zip on Windows or <code>xz -d</code> on Linux).</p>
+      <h4>Option 2: Build Your Own Image</h4>
+      <p>Requires WSL on Windows or a Linux machine with Docker:</p>
+      <pre><code># Install WSL (Windows)
+wsl --install
+
+# Install Docker (Linux/WSL)
+sudo apt update
+sudo apt install docker.io -y
+sudo service docker start
+sudo usermod -aG docker $USER
+
+# Build image
+cd ~/
+git clone https://github.com/ps5-linux/ps5-linux-image
+cd ps5-linux-image
+chmod +x ./build_image.sh
+./build_image.sh --distro ubuntu2604</code></pre>
+      <p>Result: <code>output/ps5-ubuntu2604.img</code></p>
+    </div>
+  </div>
+
+  <!-- Flash -->
+  <div class="guide-section" id="guide-flash">
+    <div class="guide-section-banner"></div>
+    <div class="guide-section-title">Flashing the Image to USB</div>
+    <div class="guide-section-body">
+      <p><b>Drive must be at least 64GB.</b> External SSD strongly recommended.</p>
+      <h4>Linux/macOS</h4>
+      <pre><code># Check drive name first with lsblk (Linux) or diskutil list (macOS)
+sudo dd if=output/ps5-ubuntu2604.img of=/dev/sdX bs=4M status=progress conv=fsync</code></pre>
+      <h4>Windows (Balena Etcher)</h4>
+      <p>Download <a href="https://etcher.balena.io/" target="_blank">Balena Etcher</a>, select the <code>.img</code> file, select your USB drive, click Flash.</p>
+      <div class="guide-section-block warning">
+        <p><b>WARNING:</b> This will <b>erase all data</b> on the target drive. Double-check you've selected the correct device.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Jailbreak 3.00-5.50 -->
+  <div class="guide-section" id="guide-jailbreak">
+    <div class="guide-section-banner red"></div>
+    <div class="guide-section-title">Jailbreak (Firmware 3.00-5.50)</div>
+    <div class="guide-section-body">
+      <p>Uses <a href="https://github.com/idlesauce/umtx2" target="_blank">umtx2 exploit</a> with fake DNS/HTTPS server.</p>
+      <h4>Steps:</h4>
+      <ol>
+        <li>Clone umtx2: <code>git clone https://github.com/idlesauce/umtx2</code></li>
+        <li>Configure <code>dns.conf</code> to point <code>manuals.playstation.net</code> to your PC's IP address</li>
+        <li>Run fake DNS: <code>sudo python fakedns.py -c dns.conf</code></li>
+        <li>Run HTTPS server in another terminal: <code>sudo python host.py</code></li>
+        <li>On PS5: go to <code>Settings → Network → Advanced Settings</code> → set primary DNS to your PC's IP, secondary to <code>0.0.0.0</code></li>
+        <li>Go to User Manual in Settings, accept untrusted certificate, run the exploit</li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- Jailbreak 6.00-7.61 -->
+  <div class="guide-section" id="guide-jailbreak-new">
+    <div class="guide-section-banner red"></div>
+    <div class="guide-section-title">Jailbreak (Firmware 6.00-7.61)</div>
+    <div class="guide-section-body">
+      <p>Uses <a href="https://github.com/Gezine/Y2JB" target="_blank">Y2JB exploit</a>.</p>
+      <h4>Steps:</h4>
+      <ol>
+        <li>Install Y2JB by following the <a href="https://github.com/Gezine/Y2JB" target="_blank">official instructions</a></li>
+        <li>Run kernel exploit: <code>python3 payload_sender.py $PS5IP 50000 payloads/lapse.js</code></li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- Payload -->
+  <div class="guide-section" id="guide-payload">
+    <div class="guide-section-banner blue"></div>
+    <div class="guide-section-title">Sending the Payload</div>
+    <div class="guide-section-body">
+      <p>After jailbreaking, you need to send the ps5-linux-loader payload.</p>
+      <h4>Download or Compile</h4>
+      <ul>
+        <li>Download: <a href="https://github.com/ps5-linux/ps5-linux-loader/releases/" target="_blank">ps5-linux-loader.elf</a></li>
+        <li>Or compile: clone repo, run <code>make</code> (requires ps5-payload-sdk)</li>
+      </ul>
+      <h4>Send via socat</h4>
+      <pre><code># Get your PS5 IP from the exploit page
+socat -t 99999999 - TCP:$PS5IP:9021 < ps5-linux-loader.elf</code></pre>
+      <h4>Boot Behavior</h4>
+      <p>If successful, the PS5 will automatically go into rest mode. Wait until the orange LED stops blinking and becomes static, <b>then</b> press power to boot into Linux. The LED should turn white if successful.</p>
+      <h4>Troubleshooting</h4>
+      <ul>
+        <li>Boots back to PS5 OS: you pressed power too early, or rest mode settings not applied</li>
+        <li>Freezes instead of rest mode: disable etahen/kstuff (incompatible)</li>
+        <li>White LED but black screen: try removing <code>video=DP-1:</code> from cmdline.txt, toggle HDCP, try different monitor, set <code>amdgpu.force_1080p=1</code></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- First Boot -->
+  <div class="guide-section" id="guide-first-boot">
+    <div class="guide-section-banner green"></div>
+    <div class="guide-section-title">First Boot Configuration</div>
+    <div class="guide-section-body">
+      <p>Configure your system and memorize your login password, then run these recommended commands:</p>
+      <h4>1. Disable buggy screen saver</h4>
+      <pre><code># Settings → Appearance → Screensaver → Off</code></pre>
+      <h4>2. Re-enable network if needed</h4>
+      <p>Disable and re-enable Wired/WLAN connection to get internet.</p>
+      <h4>3. Hold kernel packages</h4>
+      <pre><code>sudo apt-mark hold linux-generic linux-generic-hwe-24.04 linux-generic-hwe-26.04 linux-image-generic linux-image-generic-hwe-24.04 linux-image-generic-hwe-26.04 linux-headers-generic linux-headers-generic-hwe-24.04 linux-headers-generic-hwe-26.04</code></pre>
+      <h4>4. Install Firefox</h4>
+      <pre><code>sudo snap install firefox</code></pre>
+      <h4>5. Update Mesa</h4>
+      <pre><code>sudo snap refresh mesa-2404 --channel=latest/edge
+sudo add-apt-repository ppa:kisak/kisak-mesa
+sudo apt update
+sudo apt upgrade</code></pre>
+      <h4>6. Install ps5-linux-tools</h4>
+      <pre><code>sudo apt install zlib1g-dev
+git clone https://github.com/ps5-linux/ps5-linux-tools
+cd ps5-linux-tools
+make</code></pre>
+      <h4>7. Install WLAN driver (if you have Marvell chip)</h4>
+      <pre><code>lspci -nn | grep "Marvell Technology Group Ltd. Device \[1b4b:2b56\]"
+git clone https://github.com/ps5-linux/ps5-linux-mwifiex
+cd ps5-linux-mwifiex
+sudo ./install.sh</code></pre>
+    </div>
+  </div>
+
+  <!-- M.2 -->
+  <div class="guide-section" id="guide-m2">
+    <div class="guide-section-banner"></div>
+    <div class="guide-section-title">M.2 SSD Installation</div>
+    <div class="guide-section-body">
+      <p>You can use an M.2 SSD exclusively for Linux (cannot be used for PS5 game storage simultaneously).</p>
+      <h4>Steps:</h4>
+      <ol>
+        <li>Attach M.2 SSD following <a href="https://www.playstation.com/en-us/support/hardware/ps5-install-m2-ssd" target="_blank">official guide</a></li>
+        <li><b>If previously used for games:</b> reformat on PS5 under <code>Settings → Storage → M.2 SSD Storage</code></li>
+        <li>Boot Linux and initialize M.2: <code>cd ps5-linux-tools && sudo ./m2_init</code></li>
+        <li>Reboot: <code>sudo reboot</code>. If asked to format again, report to Discord with M.2 model/size</li>
+        <li>Relaunch Linux, install image to M.2: <code>cd ps5-linux-tools && sudo ./m2_install.sh --install $PATH_TO_IMG</code></li>
+        <li>Boot from M.2: <code>cd ps5-linux-tools && sudo ./m2_exec.sh</code></li>
+      </ol>
+      <h4>Always Boot from M.2</h4>
+      <p>Edit <code>/boot/efi/cmdline.txt</code> on the FAT32 partition: change <code>root=LABEL=ubuntu2604</code> to <code>root=LABEL=ubuntu2604-m2</code>. USB still required (FAT32), but ext4 partition can be reformatted.</p>
+    </div>
+  </div>
+
+  <!-- Performance -->
+  <div class="guide-section" id="guide-performance">
+    <div class="guide-section-banner yellow"></div>
+    <div class="guide-section-title">Fan & Boost Control</div>
+    <div class="guide-section-body">
+      <p>Enable max performance (3.5 GHz CPU, 2.23 GHz GPU) and adjust fan curve:</p>
+      <pre><code>cd ps5-linux-tools
+sudo ./ps5_control --fan on
+sudo ./ps5_control --boost on</code></pre>
+      <div class="guide-section-block warning">
+        <p><b>Always enable fan when boosting</b> — this is what the official PS5 OS does.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- FAQ -->
+  <div class="guide-section" id="guide-faq">
+    <div class="guide-section-banner blue"></div>
+    <div class="guide-section-title">FAQ</div>
+    <div class="guide-section-body">
+      <div class="guide-faq-item">
+        <h5>Q: Will firmware ≥8.00 be supported?</h5>
+        <p><b>A:</b> No.</p>
+      </div>
+      <div class="guide-faq-item">
+        <h5>Q: Why no M.2 on 3.xx firmware?</h5>
+        <p><b>A:</b> PS5 fails to boot with M.2 attached on those versions.</p>
+      </div>
+      <div class="guide-faq-item">
+        <h5>Q: Can I dual-boot Linux and PS5 OS?</h5>
+        <p><b>A:</b> No, this is a soft-mod. Re-run the exploit to boot into Linux. Internal SSD is not modified.</p>
+      </div>
+      <div class="guide-faq-item">
+        <h5>Q: Can I put Linux into standby and resume?</h5>
+        <p><b>A:</b> No, not currently supported. A shutdown-into-rest-mode feature may be added.</p>
+      </div>
+      <div class="guide-faq-item">
+        <h5>Q: Can I continue using my PS5 if I install Linux?</h5>
+        <p><b>A:</b> Yes, internal SSD is untouched.</p>
+      </div>
+      <div class="guide-faq-item">
+        <h5>Q: Does the DualSense controller work?</h5>
+        <p><b>A:</b> Yes, via internal Bluetooth or Bluetooth dongle.</p>
+      </div>
+      <div class="guide-faq-item">
+        <h5>Q: What resolutions/refresh rates are supported?</h5>
+        <p><b>A:</b> 1080p, 1440p, and 2160p at 60Hz are broadly supported. 1440p@120Hz confirmed on DELL S3225QC only. 120Hz/30Hz may be added.</p>
+      </div>
+      <div class="guide-faq-item">
+        <h5>Q: After reboot, I get "Repairing" / "Your PS5 wasn't turned off properly." Is this normal?</h5>
+        <p><b>A:</b> Yes, and it's harmless.</p>
+      </div>
+      <div class="guide-faq-item">
+        <h5>Q: Can I use the PS5's NIC/WLAN module in Linux?</h5>
+        <p><b>A:</b> Ethernet is supported on all models. WLAN only for Marvell chipsets currently.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Credits & Links -->
+  <div class="guide-section">
+    <div class="guide-section-banner"></div>
+    <div class="guide-section-title">Credits & Resources</div>
+    <div class="guide-section-body">
+      <h4>Core Credits</h4>
+      <ul>
+        <li><a href="https://github.com/TheOfficialFloW" target="_blank">theflow</a> — ps5-linux-loader, ps5-linux-patches, ps5-linux-tools</li>
+        <li><a href="https://github.com/c0w-ar" target="_blank">c0w</a> — ps5-linux-loader</li>
+        <li><a href="https://github.com/resulknad" target="_blank">resulknad</a> — ps5-linux-image</li>
+        <li><a href="https://github.com/rmuxnet" target="_blank">rmuxnet</a> — Ethernet driver</li>
+        <li><a href="https://github.com/fail0verflow" target="_blank">fail0verflow</a> — prosperous</li>
+        <li><a href="https://github.com/flatz" target="_blank">flatz</a> — HV exploit</li>
+        <li><a href="https://github.com/cragson" target="_blank">cragson</a> — HV exploit implementation</li>
+        <li><a href="https://github.com/john-tornblom" target="_blank">john-tornblom</a> — PS5 SDK</li>
+      </ul>
+      <h4>Resources</h4>
+      <ul>
+        <li><a href="https://github.com/ps5-linux/ps5-linux-loader" target="_blank">ps5-linux-loader (GitHub)</a></li>
+        <li><a href="https://rmuxnet.github.io/ps5-linux-guide/" target="_blank">PS5 Linux Guide (full docs)</a></li>
+        <li><a href="https://github.com/ps5-linux/ps5-linux-image" target="_blank">ps5-linux-image (releases)</a></li>
+        <li><a href="https://github.com/ps5-linux/ps5-linux-tools" target="_blank">ps5-linux-tools (fan/boost/M.2)</a></li>
+        <li><a href="https://discord.gg/PeMGVB7BAm" target="_blank">Discord server (help & community)</a></li>
+      </ul>
+    </div>
+  </div>
+
+</div>
+
 <div class="toast" id="toast"></div>
 
 <script>
@@ -1481,21 +2045,35 @@ function switchView(view) {
   const board = document.getElementById('board');
   const toolbar = document.querySelector('.toolbar');
   const research = document.getElementById('research-section');
+  const guides = document.getElementById('guides-section');
   const navBoard = document.getElementById('nav-board');
   const navResearch = document.getElementById('nav-research');
+  const navGuides = document.getElementById('nav-guides');
 
   if (view === 'research') {
     board.classList.add('hidden');
     toolbar.classList.add('hidden');
     research.classList.add('active');
+    guides.classList.remove('active');
     navBoard.classList.remove('active');
     navResearch.classList.add('active');
+    navGuides.classList.remove('active');
+  } else if (view === 'guides') {
+    board.classList.add('hidden');
+    toolbar.classList.add('hidden');
+    research.classList.remove('active');
+    guides.classList.add('active');
+    navBoard.classList.remove('active');
+    navResearch.classList.remove('active');
+    navGuides.classList.add('active');
   } else {
     board.classList.remove('hidden');
     toolbar.classList.remove('hidden');
     research.classList.remove('active');
+    guides.classList.remove('active');
     navBoard.classList.add('active');
     navResearch.classList.remove('active');
+    navGuides.classList.remove('active');
   }
 }
 

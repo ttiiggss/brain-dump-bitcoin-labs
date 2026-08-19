@@ -773,6 +773,7 @@
   .lab-signing { background: rgba(247,147,26,0.15); color: var(--accent); }
   .lab-infra { background: rgba(210,153,34,0.15); color: var(--yellow); }
   .lab-hardware { background: rgba(247,147,26,0.15); color: var(--accent); }
+  .lab-business { background: rgba(255,113,0,0.15); color: #ff7100; }
 
   /* Card detail badge */
   .card-detail-badge {
@@ -956,6 +957,7 @@
   <div class="filter-chip" data-filter="privacy" onclick="setFilter('privacy')">Privacy</div>
   <div class="filter-chip" data-filter="infra" onclick="setFilter('infra')">Infra</div>
   <div class="filter-chip" data-filter="hardware" onclick="setFilter('hardware')">Hardware</div>
+  <div class="filter-chip" data-filter="business" onclick="setFilter('business')">Business</div>
   <span class="stat-badge" id="stats"></span>
 </div>
 
@@ -1729,6 +1731,10 @@ const SEED_CARDS = [
   { id: 7, col: 'backlog', label: 'signing', title: 'Multisig Setup Wizard', desc: 'Step-by-step quorum lab: 2-of-3 with geographically diverse signers. Practice recovery from single-device loss.', priority: 'high' },
   { id: 8, col: 'backlog', label: 'privacy', title: 'Address Reuse Detective', desc: 'Lab: given a wallet fingerprint, find reused addresses on-chain and quantify the privacy leak.', priority: 'low' },
 
+  { id: 101, col: 'backlog', label: 'business', title: '🃏 MTG Singles Business Viability Research', desc: 'Research how many booster boxes, bundles, and gift boxes to crack for decent singles inventory. Wholesale pricing, EV calculations, Twilio phone integration, online store setup.', priority: 'high' },
+  { id: 102, col: 'backlog', label: 'business', title: '📦 MTG Inventory Planning — Product Mix', desc: 'Determine optimal product mix: standard boosters, collector boosters, commander decks, bundles. Calculate expected singles inventory from 10/20/50 boxes.', priority: 'high' },
+  { id: 103, col: 'backlog', label: 'business', title: '📞 Twilio Phone Integration for Orders', desc: 'Set up Twilio for phone orders: IVR for product search, SMS order confirmations, voicemail for custom requests. Integration with inventory database.', priority: 'med' },
+
   // Design
   { id: 9, col: 'design', label: 'labs', title: 'Lab Platform Architecture', desc: 'Define the challenge engine: Docker-based Bitcoin regtest envs, scoring system, hint tiers, flag submission. Badge + leaderboard concept.', priority: 'high' },
   { id: 10, col: 'design', label: 'infra', title: 'Module Curriculum Map', desc: 'Lay out progression: Beginner (keys & addresses) → Intermediate (signing & multisig) → Advanced (privacy & network). Prerequisites between modules.', priority: 'med' },
@@ -1953,7 +1959,7 @@ function renderCard(card) {
 }
 
 function labelText(l) {
-  const map = { labs:'Learning Lab', storage:'Storage', signing:'Signing', privacy:'Privacy', infra:'Infra', hardware:'Hardware' };
+  const map = { labs:'Learning Lab', storage:'Storage', signing:'Signing', privacy:'Privacy', infra:'Infra', hardware:'Hardware', business:'Business' };
   return map[l] || l;
 }
 

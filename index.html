@@ -1765,6 +1765,26 @@ const SEED_CARDS = [
 
   // Marketing & Sales
   { id: 219, col: 'backlog', label: 'business', title: '📢 Landing Page & Value Proposition', desc: 'Marketing site: "Prove your documents are real — SHA-256 + timestamp + blockchain anchor." Use cases demo, pricing calculator, FAQ.', priority: 'medium' },
+
+
+  // WISP Implementation (Neighborhood Internet Sharing)
+  { id: 301, col: 'backlog', label: 'business', title: '📡 ISP ToS Review & Business Plan Upgrade', desc: 'Review current ISP Terms of Service for sharing/reselling clauses. Upgrade to business account if required. Negotiate reseller program with ISP.', priority: 'high' },
+  { id: 302, col: 'backlog', label: 'business', title: '📡 Neighborhood Survey & Demand Validation', desc: 'Survey 10-20 neighbors: current ISP, speeds, pricing, satisfaction. Gauge interest in 100-200 Mbps for $40-60/mo. Calculate breakeven point.', priority: 'high' },
+  { id: 303, col: 'backlog', label: 'business', title: '📡 WISP Hardware Procurement', desc: 'Buy 3-5 PtP units (Ubiquiti NanoStation 5AC Loco @ $100-150 each) or mesh nodes (GL.iNet Beryl @ $60-80 each). PoE switch, roof mounts, cables, lightning arrestors.', priority: 'high' },
+  { id: 304, col: 'backlog', label: 'business', title: '📡 Router Setup: VLANs & QoS', desc: 'Configure EdgeRouter 4 or MikroTik CCR1009: VLAN 10 (your LAN), VLAN 20 (neighbor WISP), VLAN 30 (management). QoS: 70% your traffic, 30% neighbors.', priority: 'high' },
+  { id: 305, col: 'backlog', label: 'business', title: '📡 Antenna Installation & Alignment', desc: 'Install antennas on roof, align to neighbor houses. Signal strength check (dBm). Weatherproofing, surge protection, lightning arrestors. Line-of-sight verification.', priority: 'high' },
+  { id: 306, col: 'backlog', label: 'business', title: '📡 Neighbor Onboarding & Authentication', desc: 'Set up WPA2-Enterprise (RADIUS) or pre-shared keys per neighbor. Rate limiting per client (e.g., 100 Mbps down, 50 Mbps up). Acceptable use policy.', priority: 'medium' },
+  { id: 307, col: 'backlog', label: 'business', title: '📡 Monitoring & Support System', desc: 'Bandwidth monitoring per client, alert on congestion, outages, abuse. Support protocol: preferred contact method (SMS/call/email), response SLA (e.g., 4 hours).', priority: 'medium' },
+
+  // MTG Singles Business Implementation
+  { id: 401, col: 'backlog', label: 'business', title: '🃏 MTG: Card Prices & Expected Value (EV) Research', desc: 'Research EV for current Standard/Pioneer/Modern sets. Track card prices on TCGplayer, Cardmarket, eBay. Calculate EV per booster box. Identify profitable sets to crack.', priority: 'high' },
+  { id: 402, col: 'backlog', label: 'business', title: '🃏 MTG: Wholesaler & Distributor Outreach', desc: 'Contact wholesalers: GTS Distribution, ACD Distribution, Alliance Game Distributors. Get pricing on booster boxes, collector boxes, commander decks. Negotiate bulk discounts.', priority: 'high' },
+  { id: 403, col: 'backlog', label: 'business', title: '🃏 MTG: Inventory Database Setup', desc: 'Set up database for card inventory: name, set, rarity, foil, condition, quantity, buy price, sell price. Barcode scanning integration. Bulk pricing rules.', priority: 'high' },
+  { id: 404, col: 'backlog', label: 'business', title: '🃏 MTG: Twilio Phone Orders Integration', desc: 'Set up Twilio: IVR menu (Press 1 for Standard, 2 for Commander), speech-to-text for card names, inventory lookup, SMS order confirmations. Voicemail for custom requests.', priority: 'high' },
+  { id: 405, col: 'backlog', label: 'business', title: '🃏 MTG: Online Store Setup (TCGplayer/Shopify)', desc: 'Create TCGplayer Pro seller account or Shopify store. Bulk upload inventory (CSV). Set competitive prices. Automate price updates (daily). Integration with inventory database.', priority: 'high' },
+  { id: 406, col: 'backlog', label: 'business', title: '🃏 MTG: Card Sorting & Labeling Workflow', desc: 'Buy bulk storage (card boxes, binders, sleeves). Sort cracked boxes by rarity/foil. Condition grading (NM, LP, MP, HP). Barcode labeling for database tracking.', priority: 'medium' },
+  { id: 407, col: 'backlog', label: 'business', title: '🃏 MTG: Customer Outreach & Marketing', desc: 'Target local game stores, online MTG communities, Reddit /r/magicTCG. Offer competitive pricing, fast shipping, condition guarantees. Social media presence (Twitter/Instagram/Discord).', priority: 'medium' },
+
   { id: 220, col: 'backlog', label: 'business', title: '🏢 Law Firm Outreach', desc: 'Target 50 law firms: email outreach, demo video, case studies (contract disputes reduced by X%). Free trial for first 10 docs.', priority: 'high' },
   { id: 221, col: 'backlog', label: 'business', title: '🎓 Academic Institution Partnerships', desc: 'Target universities: offer free diploma verification for pilot. "Reduce diploma fraud, instant verification for employers."', priority: 'medium' },
 

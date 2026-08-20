@@ -1737,6 +1737,37 @@ const SEED_CARDS = [
   { id: 104, col: 'backlog', label: 'business', title: '🌐 Neighborhood Internet Sharing — WISP Model', desc: 'Research renting out internet to a small neighborhood community. Hardware, legal/regulatory, technical implementation (mesh/VLAN/QoS), pricing, scalability, risks.', priority: 'high' },
   { id: 105, col: 'backlog', label: 'business', title: '✍️ Document Hash Verification — Digital Notary', desc: 'Business for signatures and sensitive documents backed by SHA-256 hash verification. Prove document authenticity, detect tampering, timestamp records. Technical stack, legal framework, use cases.', priority: 'high' },
 
+  // Technical Implementation (Document Hash Verification)
+  { id: 201, col: 'backlog', label: 'business', title: '🔐 Hash Generation Module', desc: 'Build SHA-256 hash generation for uploaded documents. Support PDF, images, Word docs, scanned papers. Binary reading for consistency across systems.', priority: 'high' },
+  { id: 202, col: 'backlog', label: 'business', title: '📡 RFC 3161 Timestamp Integration', desc: 'Integrate with DigiCert/Globalsign/Entrust TSA APIs. Send hash → receive signed timestamp token (TST). Handle async processing, retries, error handling.', priority: 'high' },
+  { id: 203, col: 'backlog', label: 'business', title: '⛓️ Blockchain Anchoring (Bitcoin OP_RETURN)', desc: 'Implement Bitcoin OP_RETURN anchoring for backup timestamps. Microtransactions with hash, block confirmation tracking, verification API.', priority: 'medium' },
+  { id: 204, col: 'backlog', label: 'business', title: '🎫 Token Issuance System', desc: 'Issue JSON verification tokens: hash + timestamp + anchor + issuer + signature. QR code generation for print verification, JSON download, Verifiable Credential format.', priority: 'high' },
+  { id: 205, col: 'backlog', label: 'business', title: '✅ Verification API & UI', desc: 'Build verification workflow: upload doc → hash → compare to token → anchor check → signature verify. Public API for third-party integration.', priority: 'high' },
+
+  // Use Cases & Industry Targets
+  { id: 206, col: 'backlog', label: 'business', title: '⚖️ Legal Contracts Module', desc: 'Specialized UI for law firms: contract upload, dual-party verification, timestamp admissibility documentation, court-ready report generation.', priority: 'high' },
+  { id: 207, col: 'backlog', label: 'business', title: '🤐 NDA Protection Service', desc: 'NDA-specific workflow: signer uploads → hash timestamped → both parties receive tokens → verification tool for disputes. Chain of custody tracking.', priority: 'medium' },
+  { id: 208, col: 'backlog', label: 'business', title: '📜 Will & Trust Registry', desc: 'Attorney-facing module: will timestamping + key derivation for post-death verification. Heir verification workflow, multi-party approval, notary integration.', priority: 'medium' },
+  { id: 209, col: 'backlog', label: 'business', title: '🏛️ Government Document Verification', desc: 'Public token registry: government agencies hash official documents (passports, IDs, certificates) and publish verification tokens. Public lookup API.', priority: 'medium' },
+  { id: 210, col: 'backlog', label: 'business', title: '🎓 Academic Credential Verification', desc: 'Institution module: hash diplomas/certificates → publish verification tokens → employer verification portal. Reduce diploma fraud, instant verification.', priority: 'medium' },
+
+  // Infrastructure & Security
+  { id: 211, col: 'backlog', label: 'business', title: '🗄️ Database Schema Design', desc: 'PostgreSQL schema: documents table, hashes table, timestamps table, tokens table, verification_log table. Indexing for fast lookups, audit trail design.', priority: 'high' },
+  { id: 212, col: 'backlog', label: 'business', title: '☁️ S3/MinIO File Storage', desc: 'Set up encrypted object storage for uploaded documents. AES-256 at rest, access controls, versioning. Option: hash-only mode (no document storage for privacy).', priority: 'high' },
+  { id: 213, col: 'backlog', label: 'business', title: '🔒 Security Hardening', desc: 'OWASP Top 10 mitigation: input validation, rate limiting, CSRF protection, secure headers, SQL injection prevention. Penetration testing plan.', priority: 'high' },
+  { id: 214, col: 'backlog', label: 'business', title: '🔑 Authentication & Authorization', desc: 'Auth0 or Supabase integration: OAuth2 login, user roles (admin, notary, verifier), per-customer API keys, audit logging.', priority: 'medium' },
+  { id: 215, col: 'backlog', label: 'business', title: '📊 Analytics & Monitoring', desc: 'Track metrics: documents/month, verification requests, revenue by customer, TSA uptime, blockchain confirmation latency. Grafana dashboard, alerting.', priority: 'low' },
+
+  // Legal & Compliance
+  { id: 216, col: 'backlog', label: 'business', title: '⚖️ Legal Research: E-SIGN Act & UETA', desc: 'Research USA digital signature laws: when is hash-based timestamp admissible as evidence? Expert testimony requirements. Sample court cases.', priority: 'high' },
+  { id: 217, col: 'backlog', label: 'business', title: '🇪🇺 eIDAS Regulation Research', desc: 'Research EU eIDAS: qualified timestamps, advanced signatures, cross-border recognition. Requirements for digital notaries in EU.', priority: 'medium' },
+  { id: 218, col: 'backlog', label: 'business', title: '🤝 Legal Partner Acquisition', desc: 'Find telecom/digital signature lawyer in jurisdiction. Partnership for legal review, expert testimony, compliance audit.', priority: 'high' },
+
+  // Marketing & Sales
+  { id: 219, col: 'backlog', label: 'business', title: '📢 Landing Page & Value Proposition', desc: 'Marketing site: "Prove your documents are real — SHA-256 + timestamp + blockchain anchor." Use cases demo, pricing calculator, FAQ.', priority: 'medium' },
+  { id: 220, col: 'backlog', label: 'business', title: '🏢 Law Firm Outreach', desc: 'Target 50 law firms: email outreach, demo video, case studies (contract disputes reduced by X%). Free trial for first 10 docs.', priority: 'high' },
+  { id: 221, col: 'backlog', label: 'business', title: '🎓 Academic Institution Partnerships', desc: 'Target universities: offer free diploma verification for pilot. "Reduce diploma fraud, instant verification for employers."', priority: 'medium' },
+
   // Design
   { id: 9, col: 'design', label: 'labs', title: 'Lab Platform Architecture', desc: 'Define the challenge engine: Docker-based Bitcoin regtest envs, scoring system, hint tiers, flag submission. Badge + leaderboard concept.', priority: 'high' },
   { id: 10, col: 'design', label: 'infra', title: 'Module Curriculum Map', desc: 'Lay out progression: Beginner (keys & addresses) → Intermediate (signing & multisig) → Advanced (privacy & network). Prerequisites between modules.', priority: 'med' },

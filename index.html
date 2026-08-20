@@ -126,6 +126,15 @@
   .research-section.hidden,
   .board.hidden,
   .toolbar.hidden { display: none; }
+  .business-section {
+    display: none;
+    padding: 24px 28px;
+    max-width: 900px;
+  }
+  .business-section.active { display: block; }
+  .business-section.hidden,
+  .board.hidden,
+  .toolbar.hidden { display: none; }
 
   .research-header {
     margin-bottom: 24px;
@@ -136,6 +145,20 @@
     margin-bottom: 4px;
   }
   .research-header p {
+    font-size: 13px;
+
+  .business-header {
+    margin-bottom: 24px;
+  }
+  .business-header h2 {
+    font-size: 22px;
+    font-weight: 800;
+    margin-bottom: 4px;
+  }
+  .business-header p {
+    font-size: 13px;
+    color: var(--text-dim);
+  }
     font-size: 13px;
     color: var(--text-dim);
   }
@@ -928,6 +951,40 @@
     .board { flex-direction: column; padding: 16px; }
     .column { width: 100%; min-width: 100%; }
   }
+
+  /* Tables */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 12px 0;
+    font-size: 13px;
+  }
+  th, td {
+    padding: 8px 12px;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+  }
+  th {
+    font-weight: 600;
+    color: var(--text-dim);
+  }
+  tr:last-child td {
+    border-bottom: none;
+  }
+
+  /* Finding boxes */
+  .finding-box {
+    background: var(--bg-board);
+    border-left: 3px solid var(--border);
+    padding: 12px;
+    margin: 12px 0;
+    border-radius: 4px;
+  }
+  .finding-good { border-left-color: var(--green); }
+  .finding-bad { border-left-color: var(--red); }
+  .finding-unknown { border-left-color: var(--yellow); }
+  .finding-box p { margin: 4px 0 0; font-size: 13px; color: var(--text-dim); }
+  .finding-box strong { display: block; margin-bottom: 4px; }
 </style>
 </head>
 <body>
@@ -942,6 +999,8 @@
     <div class="nav-toggle">
       <button class="active" id="nav-board" onclick="switchView('board')">📋 Board</button>
       <button id="nav-research" onclick="switchView('research')">🔬 Research</button>
+  <button id="nav-business" onclick="switchView('business')">💼 Business Plans</button>
+  <button id="nav-business" onclick="switchView('business')">💼 Business Plans</button>
       <button id="nav-guides" onclick="switchView('guides')">📚 Guides</button>
     </div>
     <span class="by">curated by <b>m3rkle_tree</b></span>
@@ -1702,6 +1761,243 @@ sudo ./ps5_control --boost on</code></pre>
     </div>
   </div>
 
+
+<div class="business-section" id="business-section">
+
+  <div class="business-header">
+    <h2>💼 Business Plans</h2>
+    <p>In-depth business models, implementation roadmaps, and revenue projections</p>
+  </div>
+
+  <!-- Document Hash Verification Digital Notary -->
+  <div class="business-card">
+    <div class="business-card-banner purple"></div>
+    <div class="business-card-head">
+      <div class="business-card-title-row">
+        <h3>✍️ Document Hash Verification — Digital Notary</h3>
+        <div class="business-card-score">Feasibility: <span class="score-high">High</span></div>
+      </div>
+      <p class="business-card-subtitle">SHA-256 hash + timestamp + blockchain anchor for document authenticity and tamper detection</p>
+    </div>
+    <div class="business-card-details" id="business-notary-details">
+      <div class="finding-box finding-good">
+        <strong>💡 Core Value Proposition:</strong>
+        <p>Prove your documents are real — SHA-256 hash + timestamp + blockchain anchor. Detect tampering instantly. Court-admissible timestamps in USA/EU/Australia/UK/Canada.</p>
+      </div>
+      
+      <h4>📊 Revenue Potential</h4>
+      <table>
+        <tr><th>Scale</th><th>Docs/mo</th><th>Price/doc</th><th>Revenue/mo</th><th>Revenue/yr</th></tr>
+        <tr><td>Small</td><td>50</td><td>$5</td><td>$250</td><td>$3,000</td></tr>
+        <tr><td>Medium</td><td>500</td><td>$3</td><td>$1,500</td><td>$18,000</td></tr>
+        <tr><td>Large</td><td>4,000</td><td>$2</td><td>$8,000</td><td>$96,000</td></tr>
+      </table>
+
+      <h4>⚖️ Legal Framework</h4>
+      <table>
+        <tr><th>Jurisdiction</th><th>Status</th><th>Key Law</th></tr>
+        <tr><td>USA</td><td>✅ Generally accepted</td><td>E-SIGN Act, UETA</td></tr>
+        <tr><td>EU</td><td>✅ Generally accepted</td><td>eIDAS Regulation</td></tr>
+        <tr><td>UK</td><td>✅ Generally accepted</td><td>Electronic Communications Act 2000</td></tr>
+        <tr><td>Australia</td><td>✅ Generally accepted</td><td>Electronic Transactions Act 1999</td></tr>
+        <tr><td>Canada</td><td>✅ Generally accepted</td><td>Electronic Documents and Acts</td></tr>
+      </table>
+
+      <h4>🎯 Target Customers</h4>
+      <ul>
+        <li><strong>Law firms</strong> — Contract disputes, NDAs, court-ready reports</li>
+        <li><strong>Real estate</strong> — Property deeds, lease agreements</li>
+        <li><strong>Government</strong> — Passports, IDs, certificates, public verification</li>
+        <li><strong>Academic institutions</strong> — Diplomas, certificates, employer verification</li>
+        <li><strong>Software vendors</strong> — License validation, anti-piracy</li>
+      </ul>
+
+      <h4>🛠️ Tech Stack</h4>
+      <table>
+        <tr><th>Component</th><th>Option A (MVP)</th><th>Option B (Self-Hosted)</th></tr>
+        <tr><td>Backend</td><td>Python/Flask</td><td>Node.js/Express</td></tr>
+        <tr><td>Database</td><td>PostgreSQL</td><td>MongoDB</td></tr>
+        <tr><td>Timestamping</td><td>DigiCert TSA ($0.10-0.50/doc)</td><td>OpenTimestamps (free)</td></tr>
+        <tr><td>Blockchain</td><td>Bitcoin OP_RETURN ($0.05-0.20/doc)</td><td>Arweave ($0.10-0.50/doc)</td></tr>
+        <tr><td>Storage</td><td>AWS S3</td><td>MinIO (S3-compatible)</td></tr>
+        <tr><td>Auth</td><td>Auth0</td><td>Keycloak/Authentik</td></tr>
+      </table>
+
+      <h4>📈 Implementation Roadmap</h4>
+      <ul>
+        <li><strong>Week 1:</strong> Legal review + choose TSA provider</li>
+        <li><strong>Weeks 2-3:</strong> Build MVP (hash generation + timestamp + token)</li>
+        <li><strong>Months 1-2:</strong> Beta testing with 10-20 users</li>
+        <li><strong>Month 4:</strong> Launch (target law firms, real estate)</li>
+        <li><strong>Ongoing:</strong> Scale (blockchain anchoring, mobile apps, integrations)</li>
+      </ul>
+
+      <h4>⚠️ Key Risks</h4>
+      <ul>
+        <li><strong>Legal challenges</strong> — Mitigation: Use recognized TSAs, blockchain anchoring</li>
+        <li><strong>Hash collisions</strong> — Mitigation: SHA-256 is collision-resistant, regular audits</li>
+        <li><strong>Data breaches</strong> — Mitigation: Encrypt at rest, minimal data retention, GDPR compliance</li>
+      </ul>
+
+      <h4>🔗 Resources</h4>
+      <ul>
+        <li><a href="https://github.com/ttiiggss/brain-dump-bitcoin-labs/blob/main/docs/document-hash-verification-research.md" target="_blank">Full Research Doc →</a></li>
+        <li><a href="https://github.com/ttiiggss/brain-dump-bitcoin-labs/blob/main/docs/digital-notary-technical-implementation.md" target="_blank">Technical Implementation Guide →</a></li>
+        <li><a href="https://github.com/ttiiggss/brain-dump-bitcoin-labs/blob/main/docs/hash-generation-code-example.py" target="_blank">Hash Generation Code Example →</a></li>
+        <li><a href="https://datatracker.ietf.org/doc/html/rfc3161" target="_blank">RFC 3161 — Time-Stamp Protocol →</a></li>
+        <li><a href="https://opentimestamps.org/" target="_blank">OpenTimestamps (Bitcoin-anchored) →</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Neighborhood WISP Internet Sharing -->
+  <div class="business-card">
+    <div class="business-card-banner orange"></div>
+    <div class="business-card-head">
+      <div class="business-card-title-row">
+        <h3>🌐 Neighborhood Internet Sharing — WISP Model</h3>
+        <div class="business-card-score">Feasibility: <span class="score-med">Medium-High</span></div>
+      </div>
+      <p class="business-card-subtitle">Rent out your high-speed internet to nearby neighbors via wireless links</p>
+    </div>
+    <div class="business-card-details" id="business-wisp-details">
+      <div class="finding-box finding-good">
+        <strong>💡 Core Value Proposition:</strong>
+        <p>Share 1 Gbps fiber with neighbors → they get 100-200 Mbps for $40-60/mo (vs ISP charging $70-100 for 100 Mbps). You cover your costs + profit margin. Local support (you're next door).</p>
+      </div>
+
+      <h4>📊 Revenue Potential</h4>
+      <table>
+        <tr><th>Scale</th><th>Neighbors</th><th>Price/Neighbor</th><th>Revenue/mo</th><th>Costs/mo</th><th>Profit</th></tr>
+        <tr><td>Small</td><td>3-5</td><td>$40-60</td><td>$120-300</td><td>$120-200</td><td>0-30%</td></tr>
+        <tr><td>Medium</td><td>6-10</td><td>$35-50</td><td>$210-500</td><td>$180-260</td><td>15-50%</td></tr>
+        <tr><td>Large</td><td>11-20</td><td>$25-40</td><td>$275-800</td><td>$250-400</td><td>25-70%</td></tr>
+      </table>
+
+      <h4>⚖️ Legal Considerations</h4>
+      <table>
+        <tr><th>Jurisdiction</th><th>Status</th><th>Requirement</th></tr>
+        <tr><td>USA</td><td>🟡 Generally legal</td><td>Check ISP ToS; business account recommended</td></tr>
+        <tr><td>Australia</td><td>🟡 Generally legal</td><td>Check ISP ToS; no explicit ban</td></tr>
+        <tr><td>UK</td><td>🟡 Generally legal</td><td>Check ISP ToS; business use allowed</td></tr>
+        <tr><td>Canada</td><td>🟡 Generally legal</td><td>Check ISP ToS; business use allowed</td></tr>
+        <tr><td>EU</td><td>🟡 Generally legal</td><td>Check ISP ToS; EU regulations support competition</td></tr>
+      </table>
+
+      <h4>🛠️ Hardware Options</h4>
+      <table>
+        <tr><th>Type</th><th>Hardware</th><th>Range</th><th>Bandwidth</th><th>Cost</th></tr>
+        <tr><td>PtP (direct)</td><td>Ubiquiti NanoStation 5AC Loco</td><td>5-10 km</td><td>450 Mbps</td><td>$100-150</td></tr>
+        <tr><td>Mesh (scattered)</td><td>GL.iNet Beryl (Wi-Fi 6)</td><td>50-100 m</td><td>1 Gbps</td><td>$60-80</td></tr>
+        <tr><td>PtMP (many)</td><td>Ubiquiti airMAX Sector</td><td>120°</td><td>400 Mbps</td><td>$300-500</td></tr>
+        <tr><td>Router</td><td>Ubiquiti EdgeRouter 4 / MikroTik CCR1009</td><td>-</td><td>-</td><td>$200-400</td></tr>
+      </table>
+
+      <h4>🎯 Recommended Starting Point</h4>
+      <ul>
+        <li><strong>Check ISP ToS</strong> — Look for "sharing" or "reselling" clauses</li>
+        <li><strong>Survey 10-20 neighbors</strong> — Gauge interest, calculate breakeven</li>
+        <li><strong>Buy 3-5 PtP units</strong> — Ubiquiti NanoStation or GL.iNet mesh nodes (~$300-600)</li>
+        <li><strong>Set up VLANs + QoS</strong> — Your LAN (VLAN 10) vs neighbor WISP (VLAN 20), 70/30 split</li>
+        <li><strong>Install antennas</strong> — Roof mounts, signal strength check, line-of-sight</li>
+        <li><strong>Start small</strong> — 3-5 neighbors first, scale to 10-20 if successful</li>
+      </ul>
+
+      <h4>⚠️ Key Risks</h4>
+      <ul>
+        <li><strong>ISP ToS violation</strong> — Mitigation: Upgrade to business account</li>
+        <li><strong>Neighbor abuse (torrenting/illegal content)</strong> — Mitigation: QoS caps, block P2P, AUP</li>
+        <li><strong>Network congestion</strong> — Mitigation: Bandwidth monitoring, per-user caps</li>
+        <li><strong>Support overhead</strong> — Mitigation: Limit scale, set response SLA</li>
+      </ul>
+
+      <h4>🔗 Resources</h4>
+      <ul>
+        <li><a href="https://github.com/ttiiggss/brain-dump-bitcoin-labs/blob/main/docs/neighborhood-wisp-research.md" target="_blank">Full Research Doc →</a></li>
+        <li><a href="https://www.ui.com/wireless" target="_blank">Ubiquiti WISP Solutions →</a></li>
+        <li><a href="https://wiki.mikrotik.com/wiki/Manual:TOC" target="_blank">MikroTik RouterOS Documentation →</a></li>
+        <li><a href="https://openwrt.org/" target="_blank">OpenWRT Documentation →</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- MTG Singles Business -->
+  <div class="business-card">
+    <div class="business-card-banner purple"></div>
+    <div class="business-card-head">
+      <div class="business-card-title-row">
+        <h3>🃏 MTG Singles Business</h3>
+        <div class="business-card-score">Feasibility: <span class="score-high">High</span></div>
+      </div>
+      <p class="business-card-subtitle">Buy booster boxes, crack for singles, sell online + phone orders via Twilio</p>
+    </div>
+    <div class="business-card-details" id="business-mtg-details">
+      <div class="finding-box finding-good">
+        <strong>💡 Core Value Proposition:</strong>
+        <p>Crack booster boxes for singles inventory + sell via online store (TCGplayer/Shopify) + phone orders (Twilio IVR). Target underserved markets (local game stores, /r/magicTCG). Better prices than big retailers.</p>
+      </div>
+
+      <h4>📊 Revenue Potential</h4>
+      <table>
+        <tr><th>Scale</th><th>Monthly Revenue</th><th>Monthly Costs</th><th>Profit Margin</th><th>Breakeven</th></tr>
+        <tr><td>MVP</td><td>$3,000</td><td>$2,500-3,000</td><td>0-10%</td><td>~500 sales</td></tr>
+        <tr><td>Mid-Range</td><td>$8,000</td><td>$5,000-6,000</td><td>25-35%</td><td>~1,200 sales</td></tr>
+        <tr><td>Large</td><td>$20,000</td><td>$10,000-12,000</td><td>40-50%</td><td>~2,500 sales</td></tr>
+      </table>
+
+      <h4>🎯 Recommended Starting Inventory</h4>
+      <ul>
+        <li><strong>20 Standard Booster Boxes</strong> — ~90 mythics + 720 rares ($1,600-1,800)</li>
+        <li><strong>5 Collector Booster Boxes</strong> — ~22 mythics + premium foils ($750-900)</li>
+        <li><strong>8 Commander Decks</strong> — ~160 commander singles ($160-200)</li>
+        <li><strong>4 Gift Bundles</strong> — ~16 mythics + promos ($160-200)</li>
+        <li><strong>Total</strong> — ~112 mythics + 720 rares + 2,160 uncommons for **$2,670-3,100**</li>
+      </ul>
+
+      <h4>🛠️ Tech Stack</h4>
+      <table>
+        <tr><th>Component</th><th>Option</th><th>Why</th></tr>
+        <tr><td>Online Store</td><td>TCGplayer Pro or Shopify</td><td>TCGplayer = MTG-specific audience; Shopify = full control</td></tr>
+        <tr><td>Phone Orders</td><td>Twilio</td><td>IVR menu, speech-to-text, SMS confirmations</td></tr>
+        <tr><td>Inventory DB</td><td>PostgreSQL/MySQL</td><td>Card inventory tracking, barcode scanning</td></tr>
+        <tr><td>Storage</td><td>Card boxes, binders, sleeves</td><td>Bulk storage, condition protection</td></tr>
+      </table>
+
+      <h4>📈 60/30/10 Product Mix Strategy</h4>
+      <ul>
+        <li><strong>60% budget:</strong> Standard booster boxes (bread-and-butter singles)</li>
+        <li><strong>30% budget:</strong> Collector boosters + bundles (premium singles + promos)</li>
+        <li><strong>10% budget:</strong> Commander decks + intro packs (niche demand + cross-sell)</li>
+      </ul>
+
+      <h4>🎯 Target Customers</h4>
+      <ul>
+        <li><strong>Local game stores</strong> — Wholesale pricing, bulk discounts</li>
+        <li><strong>Online MTG communities</strong> — Reddit /r/magicTCG, Discord, Twitter</li>
+        <li><strong>Casual players</strong> — Budget singles, playable decks</li>
+        <li><strong>Commander players</strong> — EDH staples, budget options</li>
+      </ul>
+
+      <h4>⚠️ Key Risks</h4>
+      <ul>
+        <li><strong>EV < wholesale</strong> — Mitigation: Track card prices, crack profitable sets only</li>
+        <li><strong>Inventory overstock</strong> — Mitigation: Bulk pricing, bundle deals, card buylists</li>
+        <li><strong>Competition</strong> — Mitigation: Better prices, faster shipping, local support</li>
+      </ul>
+
+      <h4>🔗 Resources</h4>
+      <ul>
+        <li><a href="https://github.com/ttiiggss/brain-dump-bitcoin-labs/blob/main/docs/mtg-singles-inventory-planning.md" target="_blank">Full Inventory Planning Doc →</a></li>
+        <li><a href="https://tcgsync.com/how-to-open-a-magic-store" target="_blank">How to Open an MTG Store →</a></li>
+        <li><a href="https://mtgbulkcaster.com/blog/mtg-expected-value" target="_blank">MTG Expected Value Guide →</a></li>
+        <li><a href="https://scryfall.com/" target="_blank">Scryfall (Card Database & Prices) →</a></li>
+      </ul>
+    </div>
+  </div>
+
+</div>
+
+<div class="toast" id="toast"></div>
 </div>
 
 <div class="toast" id="toast"></div>
@@ -2122,6 +2418,9 @@ function switchView(view) {
     toolbar.classList.add('hidden');
     research.classList.remove('active');
     guides.classList.add('active');
+  } else if (view === 'business') {
+    business.classList.remove('hidden');
+    business.classList.add('active');
     navBoard.classList.remove('active');
     navResearch.classList.remove('active');
     navGuides.classList.add('active');
@@ -2138,8 +2437,12 @@ function switchView(view) {
 
 function toggleResearchBody(btn) {
   const body = btn.nextElementSibling;
-  const isOpen = body.classList.toggle('open');
-  btn.textContent = isOpen ? '▲ Collapse' : '▼ Expand Full Audit';
+  if (body) body.classList.toggle('expanded');
+}
+
+function toggleBusinessBody(btn) {
+  const body = btn.nextElementSibling;
+  if (body) body.classList.toggle('expanded');
 }
 
 // ── Modal ──
